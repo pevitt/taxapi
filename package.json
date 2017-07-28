@@ -1,0 +1,22 @@
+{
+  "name": "tax_api",
+  "version": "1.0.0",
+  "description": "api for taxes application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tax",
+    "taxes",
+    "formularies"
+  ],
+  "author": "comunity",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "0.0.3",
+    "jsonwebtoken": "^7.4.1",
+    "restify": "^5.0.1",
+    "restify-jwt": "^0.4.0"
+  }
+}
