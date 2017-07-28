@@ -130,7 +130,8 @@ module.exports = function(server, db_config, secret){
               // return the information including token as JSON
               res.json({
                 success: true,
-                message: 'Enjoy your token!',
+                message: 'logged in successfully!',
+                id: user.id,
                 token: token
               });
 
