@@ -3,6 +3,8 @@
 var restify = require('restify');
 var jwtr = require('restify-jwt');
 var jwt = require('jsonwebtoken');
+var port = process.env.PORT || 3000;
+
 var server = restify.createServer({
   name: 'myapp',
   version: '1.0.0'
@@ -67,7 +69,7 @@ server.use(function (req, res, next){
 require('./user')(server,db_config,secretToken);
 require('./formW2')(server,db_config);
 
-server.listen(8080, function() {
+server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);
 });
 
