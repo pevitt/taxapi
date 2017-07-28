@@ -16,6 +16,7 @@
   "dependencies": {
     "crypto": "0.0.3",
     "jsonwebtoken": "^7.4.1",
+    "mysql": "^2.14.0",
     "restify": "^5.0.1",
     "restify-jwt": "^0.4.0"
   }
