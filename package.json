@@ -14,10 +14,12 @@
   "author": "comunity",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.4",
     "crypto": "0.0.3",
     "jsonwebtoken": "^7.4.1",
     "mysql": "^2.14.0",
     "restify": "^5.0.1",
+    "restify-cors-middleware": "^1.0.0",
     "restify-jwt": "^0.4.0"
   }
 }
