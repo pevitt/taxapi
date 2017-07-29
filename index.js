@@ -35,7 +35,7 @@ function unknownMethodHandler(req, res, next) {
     res.header('Access-Control-Allow-Origin', req.headers.origin);
 
     return next();
-  }
+  } 
   else
     return res.send(new restify.MethodNotAllowedError());
 }
