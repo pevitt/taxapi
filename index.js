@@ -22,7 +22,7 @@ var secretToken = '1d=5YA@t_d/+_E%h';
 server.use(restify.plugins.bodyParser());
 
 
-function unknownMethodHandler(req, res) {
+function unknownMethodHandler(req, res, next) {
   if (req.method.toLowerCase() === 'options') {
       console.log('received an options method request');
     var allowHeaders = ['Accept', 'Accept-Version', 'Content-Type', 'Api-Version', 'Origin', 'X-Requested-With']; // added Origin & X-Requested-With
@@ -34,7 +34,7 @@ function unknownMethodHandler(req, res) {
     res.header('Access-Control-Allow-Methods', res.methods.join(', '));
     res.header('Access-Control-Allow-Origin', req.headers.origin);
 
-    return res.send(204);
+    return next();
   }
   else
     return res.send(new restify.MethodNotAllowedError());
