@@ -21,6 +21,17 @@ var secretToken = '1d=5YA@t_d/+_E%h';
 
 server.use(restify.plugins.bodyParser());
 
+
+//setup cors
+restify.CORS.ALLOW_HEADERS.push('accept');
+restify.CORS.ALLOW_HEADERS.push('sid');
+restify.CORS.ALLOW_HEADERS.push('lang');
+restify.CORS.ALLOW_HEADERS.push('origin');
+restify.CORS.ALLOW_HEADERS.push('withcredentials');
+restify.CORS.ALLOW_HEADERS.push('x-requested-with');
+server.use(restify.CORS());
+
+
 server.use(function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
