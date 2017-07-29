@@ -45,16 +45,14 @@ server.use(function (req, res, next){
         }
       });
     } else {
-      return res.send(500,{ 
+      res.send(500,{ 
           success: false, 
           message: 'No token provided.' 
       });
-
+      return next(false);
     }
 });
 
-
-  
 require('./user')(server,db_config,secretToken);
 require('./formW2')(server,db_config);
 

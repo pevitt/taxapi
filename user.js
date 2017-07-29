@@ -121,7 +121,7 @@ module.exports = function(server, db_config, secret){
               return next(false);
             }
 
-            if(result != undefined && result[0] != undefined){
+            if(result != undefined && result[0] != undefined && user.salt != undefined){
               var user = result[0];
 
               var passwordData = sha512(req.body.password, user.salt);
