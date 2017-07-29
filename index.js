@@ -22,23 +22,25 @@ var secretToken = '1d=5YA@t_d/+_E%h';
 server.use(restify.plugins.bodyParser());
 
 
-//setup cors
-restify.CORS.ALLOW_HEADERS.push('accept');
-restify.CORS.ALLOW_HEADERS.push('sid');
-restify.CORS.ALLOW_HEADERS.push('lang');
-restify.CORS.ALLOW_HEADERS.push('origin');
-restify.CORS.ALLOW_HEADERS.push('withcredentials');
-restify.CORS.ALLOW_HEADERS.push('x-requested-with');
-server.use(restify.CORS());
+function unknownMethodHandler(req, res) {
+  if (req.method.toLowerCase() === 'options') {
+      console.log('received an options method request');
+    var allowHeaders = ['Accept', 'Accept-Version', 'Content-Type', 'Api-Version', 'Origin', 'X-Requested-With']; // added Origin & X-Requested-With
 
+    if (res.methods.indexOf('OPTIONS') === -1) res.methods.push('OPTIONS');
 
-server.use(function (req,res,next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-    return next();
-});
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Headers', allowHeaders.join(', '));
+    res.header('Access-Control-Allow-Methods', res.methods.join(', '));
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+
+    return res.send(204);
+  }
+  else
+    return res.send(new restify.MethodNotAllowedError());
+}
+
+server.on('MethodNotAllowed', unknownMethodHandler);
 
 server.use(function (req, res, next){
     if(req.url == '/user/create/' ||  req.url == '/user/login/'){
