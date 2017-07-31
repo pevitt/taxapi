@@ -9,47 +9,6 @@ module.exports = function(server, db_config, secret){
   var connection; 
   var table = 'tx_user';
 
-  server.get('/user/', (req, res, next) => {
-    
-    conectionDB(); 
-
-    connection.query("SELECT * FROM " + table , function (err, result, fields) {
-    
-      if (err) throw err;
-      
-      res.send(200,result);
-
-      connection.end();
-
-      return next(false);
-     
-    });
-    
-    return next();
-    
-  });
-
-  server.get('/user/:id', (req, res, next) => {
-
-    conectionDB(); 
-
-    connection.query("SELECT * FROM " + table + " Where userId = ?" , [req.params.id], function (err, result, fields) {
-    
-      if (err) throw err;
-
-      var user = result[0];
-      
-      res.send(200, user);
-
-      connection.end();
-
-      return next(false);
-    });
-
-    return next();
-
-  });
-
   server.post('/user/create/', (req, res, next) => {
     if(req.body != undefined){
       if( req.body.hasOwnProperty('email') && req.body.hasOwnProperty('password') && req.body.hasOwnProperty('password_confirm')){
@@ -61,8 +20,6 @@ module.exports = function(server, db_config, secret){
             var salt = genRandomString(16); /** Gives us salt of length 16 */
             var passwordData = sha512(req.body.password, salt);
 
-            console.log(passwordData.passwordHash);
-
             conectionDB();
 
             connection.query(query , [req.body.email, passwordData.passwordHash, passwordData.salt], function (err, result, fields) {
@@ -72,10 +29,8 @@ module.exports = function(server, db_config, secret){
                 connection.end();
                 return next(false);
               }
-
-              var user = result[0];
               
-              res.send(200, {message:"Inserted successfully"});
+              res.send(200, {success: false, message:"Inserted successfully"});
 
               connection.end();
 
@@ -84,19 +39,19 @@ module.exports = function(server, db_config, secret){
 
           }else{
             //match the passwords
-            res.send(500, {message:"Passwords are differents"});
+            res.send(200, {success:false, message:"Passwords are differents"});
           }
         }else{
           //data cant be null
-          res.send(500, {message:"Data can't be null"});
+          res.send(200, {success:false, message:"Data can't be null"});
         }
       }else{
         //missin parameter
-        res.send(500, {message:"Missing parameters"});
+        res.send(200, {success:false, message:"Missing parameters"});
       }
     }else{
       //missin parameter
-        res.send(500, {message:"Wrong format"});
+        res.send(200, {success:false, message:"Wrong format"});
     }
 
     return next(false);
@@ -143,12 +98,12 @@ module.exports = function(server, db_config, secret){
               }else{
 
                 //missin parameter
-                res.send(500, {message:"Password Invalid"});
+                res.send(200, {success:false, message:"Password Invalid"});
 
               }
             }else{
               //missin parameter
-              res.send(500, {message:"User Doesn't Exist"});
+              res.send(200, {success:false, message:"User Doesn't Exist"});
               
             }
             
@@ -159,20 +114,19 @@ module.exports = function(server, db_config, secret){
 
         }else{
           //data cant be null
-          res.send(500, {message:"Data can't be null"});
+          res.send(200, {success:false, message:"Data can't be null"});
         }
       }else{
         //missin parameter
-        res.send(500, {message:"Missing parameters"});
+        res.send(200, {success:false, message:"Missing parameters"});
       }
     }else{
       //missin parameter
-        res.send(500, {message:"Wrong format"});
+        res.send(200, {success:false, message:"Wrong format"});
     }
 
     return next(false);
   });
-
 
   function conectionDB(){
       
@@ -193,6 +147,7 @@ module.exports = function(server, db_config, secret){
       }
     });                               
   }
+
   /**
    * generates random string of characters i.e salt
    * @function
@@ -219,9 +174,6 @@ module.exports = function(server, db_config, secret){
           passwordHash:value
       };
   };
-
-
-
 
 };
 

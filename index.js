@@ -53,8 +53,8 @@ server.use(function (req, res, next){
     }
 });
 
-require('./user')(server,db_config,secretToken);
-require('./formW2')(server,db_config);
+require('./user')(server, db_config, secretToken);
+require('./personalProfile')(server, db_config);
 
 server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);
