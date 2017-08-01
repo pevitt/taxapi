@@ -12,6 +12,13 @@ var server = restify.createServer({
   version: '1.0.0'
 })
 
+/*var db_config = {
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "admin_tax_pupilo"
+};*/
+
 var db_config = {
   host: "69.87.220.221",
   user: "admin_pehamr",
@@ -55,6 +62,7 @@ server.use(function (req, res, next){
 
 require('./user')(server, db_config, secretToken);
 require('./personalProfile')(server, db_config);
+require('./unemployment.js')(server, db_config);
 
 server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);
