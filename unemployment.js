@@ -229,7 +229,7 @@ module.exports = function(server, db_config){
     return next();
   });
 
-  server.put('/unemployment/:unemploymentId/:userId', (req, res, next) => {
+  server.delete('/unemployment/:unemploymentId/:userId', (req, res, next) => {
     if(req.params.personalProfileId && isInteger(req.params.personalProfileId) && req.params.userId && isInteger(req.params.userId)){
       
       var queryInsert = "SELECT * FROM " + table + " WHERE UserID = ? AND Id = ?";
