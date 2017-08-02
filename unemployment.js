@@ -159,7 +159,7 @@ module.exports = function(server, db_config){
   });
   
   server.put('/unemployment/:unemploymentId', (req, res, next) => {
-    if(req.params.personalProfileId && isInteger(req.params.personalProfileId) ){
+    if(req.params.unemploymentId && isInteger(req.params.unemploymentId) ){
 
       var _sqlparams = [];
 
@@ -201,7 +201,7 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.P2015Taxable);
           _sqlparams.push(req.body.RefundAmount);
           _sqlparams.push(req.body.MFS);
-          _sqlparams.push(req.params.personalProfileId);
+          _sqlparams.push(req.params.unemploymentId);
    
       var queryInsert = "UPDATE " + table + " SET `Tsj` = ?, `Ein` = ?, `Name` = ?, `NameCont` = ?, `Street` = ?, `City` = ?, `FirstName` = ?, `LastName` = ?, `Street2` = ?, `City2` = ?, `Compensation` = ?, `CompRepaidYear` = ?, `StateTaxCredits` = ?, `TaxYear` = ?, `FederalTax` = ?, `RTAAPay` = ?, `DFor` = ?, `Market` = ?, `Mfc` = ?, `Agriculture` = ?, `TaxGrants` = ?, `TradeBussiness` = ?, `State` = ?, `StateID` = ?, `StateUnemploy` = ?, `StateHolding` = ?, `LocalPayment` = ?, `LocalHolding` = ?, `LocalityName` = ?, `P2015SA5` = ?, `P2015SA29` = ?, `P2015AGI` = ?, `P2015State5` = ?, `P2015Filling` = ?, `P2015Form1040` = ?, `P2015Taxable` = ?, `RefundAmount` = ?, `MFS` = ? WHERE `UserID` = ?;";
 
@@ -230,13 +230,13 @@ module.exports = function(server, db_config){
   });
 
   server.del('/unemployment/:unemploymentId/:userId', (req, res, next) => {
-    if(req.params.personalProfileId && isInteger(req.params.personalProfileId) && req.params.userId && isInteger(req.params.userId)){
+    if(req.params.unemploymentId && isInteger(req.params.unemploymentId) && req.params.userId && isInteger(req.params.userId)){
       
       var queryInsert = "SELECT * FROM " + table + " WHERE UserID = ? AND Id = ?";
 
       conectionDB();
 
-      connection.query(queryInsert , [req.params.userId, req.params.personalProfileId], function (err, result, fields) {
+      connection.query(queryInsert , [req.params.userId, req.params.unemploymentId], function (err, result, fields) {
 
         connection.end();
 
@@ -252,7 +252,7 @@ module.exports = function(server, db_config){
 
           conectionDB();
 
-          connection.query(queryInsert , [req.params.userId, req.params.personalProfileId], function (err, result, fields) {
+          connection.query(queryInsert , [req.params.userId, req.params.unemploymentId], function (err, result, fields) {
 
             connection.end();
 
