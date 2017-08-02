@@ -125,7 +125,7 @@ module.exports = function(server, db_config){
           
           //if record doesn't exist we create it
           //inserting new rpersonal profile
-          var queryInsert = "INSERT INTO " + table + " (`Tsj`,`Ein`,`Name`,`NameCont`,`Street`,`City`,`FirstName`,`LastName`,`Street2`,`City2`,`Compensation`,`CompRepaidYear`,`StateTaxCredits`,`TaxYear`,`FederalTax`,`RTAAPay`,`DFor`,`Market`,`Mfc`,`Agriculture`,`TaxGrants`,`TradeBussiness`,`State`,`StateID`,`StateUnemploy`,`StateHolding`,`LocalPayment`,`LocalHolding`,`LocalityName`,`2015SA5`,`2015SA29`,`2015AGI`,`2015State5`,`2015Filling`,`2015Form1040`,`2015Taxable`,`RefundAmount`,`MFS`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+          var queryInsert = "INSERT INTO " + table + " (`Tsj`,`Ein`,`Name`,`NameCont`,`Street`,`City`,`FirstName`,`LastName`,`Street2`,`City2`,`Compensation`,`CompRepaidYear`,`StateTaxCredits`,`TaxYear`,`FederalTax`,`RTAAPay`,`DFor`,`Market`,`Mfc`,`Agriculture`,`TaxGrants`,`TradeBussiness`,`State`,`StateID`,`StateUnemploy`,`StateHolding`,`LocalPayment`,`LocalHolding`,`LocalityName`,`P2015SA5`,`P2015SA29`,`P2015AGI`,`P2015State5`,`P2015Filling`,`P2015Form1040`,`P2015Taxable`,`RefundAmount`,`MFS`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
           conectionDB();
 
@@ -203,7 +203,7 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.MFS);
           _sqlparams.push(req.params.personalProfileId);
    
-      var queryInsert = "UPDATE " + table + " SET `Tsj` = ?, `Ein` = ?, `Name` = ?, `NameCont` = ?, `Street` = ?, `City` = ?, `FirstName` = ?, `LastName` = ?, `Street2` = ?, `City2` = ?, `Compensation` = ?, `CompRepaidYear` = ?, `StateTaxCredits` = ?, `TaxYear` = ?, `FederalTax` = ?, `RTAAPay` = ?, `DFor` = ?, `Market` = ?, `Mfc` = ?, `Agriculture` = ?, `TaxGrants` = ?, `TradeBussiness` = ?, `State` = ?, `StateID` = ?, `StateUnemploy` = ?, `StateHolding` = ?, `LocalPayment` = ?, `LocalHolding` = ?, `LocalityName` = ?, `2015SA5` = ?, `2015SA29` = ?, `2015AGI` = ?, `2015State5` = ?, `2015Filling` = ?, `2015Form1040` = ?, `2015Taxable` = ?, `RefundAmount` = ?, `MFS` = ? WHERE `UserID` = ?;";
+      var queryInsert = "UPDATE " + table + " SET `Tsj` = ?, `Ein` = ?, `Name` = ?, `NameCont` = ?, `Street` = ?, `City` = ?, `FirstName` = ?, `LastName` = ?, `Street2` = ?, `City2` = ?, `Compensation` = ?, `CompRepaidYear` = ?, `StateTaxCredits` = ?, `TaxYear` = ?, `FederalTax` = ?, `RTAAPay` = ?, `DFor` = ?, `Market` = ?, `Mfc` = ?, `Agriculture` = ?, `TaxGrants` = ?, `TradeBussiness` = ?, `State` = ?, `StateID` = ?, `StateUnemploy` = ?, `StateHolding` = ?, `LocalPayment` = ?, `LocalHolding` = ?, `LocalityName` = ?, `P2015SA5` = ?, `P2015SA29` = ?, `P2015AGI` = ?, `P2015State5` = ?, `P2015Filling` = ?, `P2015Form1040` = ?, `P2015Taxable` = ?, `RefundAmount` = ?, `MFS` = ? WHERE `UserID` = ?;";
 
       conectionDB();
 
