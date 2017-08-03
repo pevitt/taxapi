@@ -10,7 +10,7 @@ module.exports = function(server, db_config){
   
   server.get('/forminfo/byname/:Name', (req, res, next) => {
 
-      var query = "SELECT * FROM " + table + " where NameForm = '?'";
+      var query = "SELECT * FROM " + table + " where NameForm = ?";
 
       conectionDB();
 
