@@ -63,6 +63,7 @@ server.use(function (req, res, next){
 require('./user')(server, db_config, secretToken);
 require('./personalProfile')(server, db_config);
 require('./unemployment.js')(server, db_config);
+require('./forminfo.js')(server, db_config);
 
 server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);

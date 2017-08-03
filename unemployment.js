@@ -121,11 +121,12 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.P2015Taxable);
           _sqlparams.push(req.body.RefundAmount);
           _sqlparams.push(req.body.MFS);
+          _sqlparams.push(req.body.FormInfoId);
           _sqlparams.push(req.params.userId);
           
           //if record doesn't exist we create it
           //inserting new rpersonal profile
-          var queryInsert = "INSERT INTO " + table + " (`Tsj`,`Ein`,`Name`,`NameCont`,`Street`,`City`,`FirstName`,`LastName`,`Street2`,`City2`,`Compensation`,`CompRepaidYear`,`StateTaxCredits`,`TaxYear`,`FederalTax`,`RTAAPay`,`DFor`,`Market`,`Mfc`,`Agriculture`,`TaxGrants`,`TradeBussiness`,`State`,`StateID`,`StateUnemploy`,`StateHolding`,`LocalPayment`,`LocalHolding`,`LocalityName`,`P2015SA5`,`P2015SA29`,`P2015AGI`,`P2015State5`,`P2015Filling`,`P2015Form1040`,`P2015Taxable`,`RefundAmount`,`MFS`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+          var queryInsert = "INSERT INTO " + table + " (`Tsj`,`Ein`,`Name`,`NameCont`,`Street`,`City`,`FirstName`,`LastName`,`Street2`,`City2`,`Compensation`,`CompRepaidYear`,`StateTaxCredits`,`TaxYear`,`FederalTax`,`RTAAPay`,`DFor`,`Market`,`Mfc`,`Agriculture`,`TaxGrants`,`TradeBussiness`,`State`,`StateID`,`StateUnemploy`,`StateHolding`,`LocalPayment`,`LocalHolding`,`LocalityName`,`P2015SA5`,`P2015SA29`,`P2015AGI`,`P2015State5`,`P2015Filling`,`P2015Form1040`,`P2015Taxable`,`RefundAmount`,`MFS`,`UserID`,`FormInfoId`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
           conectionDB();
 
