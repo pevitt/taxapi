@@ -109,14 +109,14 @@ module.exports = function(server, db_config){
   server.get('/forminfo/listforms/:UserId', (req, res, next) => {
 
     if(req.params.UserId && isInteger(req.params.UserId) ){
-
+      
       var query = "SELECT d.*, i.Amount, u.Name, u.LastName FROM " + detail + " AS d INNER JOIN " + table + " AS i ON ON d.FormInfoId = i.Id";
       query = query + "  INNER JOIN " + unemploy + " AS u ON u.Id = d.FormId";
       query = query + "  where d.UserId = ?";
 
       conectionDB();
 
-      connection.query(query , [req.params.userId], function (err, result, fields) {
+      connection.query(query , [req.params.UserId], function (err, result, fields) {
         
         if (err){
           res.send(500, {message: err});
