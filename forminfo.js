@@ -6,7 +6,9 @@ module.exports = function(server, db_config){
 
   var connection; 
   var table = 'tx_forms_info';
-
+  var detail = 'tx_forms_detail';
+  var unemploy = 'tx_form_unemployment';
+  var user = 'tx_user';
   
   server.get('/forminfo/byname/:Name', (req, res, next) => {
 
@@ -103,6 +105,45 @@ module.exports = function(server, db_config){
     }
     return next();
   });
+
+  server.get('/forminfo/listforms/:UserId', (req, res, next) => {
+
+    if(req.params.UserId && isInteger(req.params.UserId) ){
+
+      var query = "SELECT d.*, i.Amount, u.Name, u.LastName FROM " + detail + " AS d INNER JOIN " + table + " AS i ON ON d.FormInfoId = i.Id";
+      query = query + "  INNER JOIN " + unemploy + " AS u ON u.Id = d.FormId";
+      query = query + "  where d.UserId = ?";
+
+      conectionDB();
+
+      connection.query(query , [req.params.userId], function (err, result, fields) {
+        
+        if (err){
+          res.send(500, {message: err});
+          connection.end();
+          return next(false);
+        }
+        
+        if(result != undefined && result[0] != undefined){
+          res.json({success:true , hasdata: true , data: result});
+          connection.end();
+          return next();
+        }else{
+          //missin parameter
+          res.json({success:true , hasdata: false});
+          connection.end();
+          return next();
+        }
+
+      });
+
+    }else{
+      res.send(200, {success: false, message: "Param must be a number"});
+      return next(false);  
+    }
+    return next();
+  });
+
 
   
   
