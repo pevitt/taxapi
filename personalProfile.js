@@ -46,22 +46,9 @@ module.exports = function(server, db_config){
   server.post('/personal_info/:userId', (req, res, next) => {
     if(req.params.userId && isInteger(req.params.userId) ){
       if( req.body.hasOwnProperty('FirstName') && req.body.FirstName != "" && 
-          req.body.hasOwnProperty('Minitial') && req.body.Minitial != "" && 
           req.body.hasOwnProperty('LastName') && req.body.LastName != "" && 
-          req.body.hasOwnProperty('JrSr') && req.body.JrSr != "" && 
           req.body.hasOwnProperty('BirthDate') && req.body.BirthDate != "" && 
-          req.body.hasOwnProperty('Ssn') && req.body.Ssn != "" && 
-          req.body.hasOwnProperty('Occupation') && req.body.Occupation != "" && 
-          req.body.hasOwnProperty('Address') && req.body.Address != "" && 
-          req.body.hasOwnProperty('Apt') && req.body.Apt != "" && 
-          req.body.hasOwnProperty('City') && req.body.City != "" && 
-          req.body.hasOwnProperty('State') && req.body.State != "" && 
-          req.body.hasOwnProperty('Zip') && req.body.Zip != "" && 
-          req.body.hasOwnProperty('PhoneType1') && req.body.PhoneType1 != "" && 
-          req.body.hasOwnProperty('PhoneNumber1') && req.body.PhoneNumber1 != "" && 
-          req.body.hasOwnProperty('Ext1') && req.body.Ext1 != "" && 
-          req.body.hasOwnProperty('StateResident') && req.body.StateResident != "" && 
-          req.body.hasOwnProperty('MaritalStatus') && req.body.MaritalStatus != "" )
+          req.body.hasOwnProperty('Ssn') && req.body.Ssn != "")
       {
 
         //querying if a personal profile already exists
@@ -163,50 +150,48 @@ module.exports = function(server, db_config){
           
           console.log("req.body.hasOwnProperty('FirstName') ",req.body.hasOwnProperty('FirstName') );
           console.log("req.body.FirstName != '' ",req.body.FirstName != "" );
-          console.log("req.body.hasOwnProperty('Minitial') ",req.body.hasOwnProperty('Minitial') );
-          console.log("req.body.Minitial != '' ",req.body.Minitial != "" );
+          
           console.log("req.body.hasOwnProperty('LastName') ",req.body.hasOwnProperty('LastName') );
           console.log("req.body.LastName != '' ",req.body.LastName != "" );
-          console.log("req.body.hasOwnProperty('JrSr') ",req.body.hasOwnProperty('JrSr') );
-          console.log("req.body.JrSr != '' ",req.body.JrSr != "" );
+          
           console.log("req.body.hasOwnProperty('BirthDate') ",req.body.hasOwnProperty('BirthDate') );
           console.log("req.body.BirthDate != '' ",req.body.BirthDate != "" );
           console.log("req.body.hasOwnProperty('Ssn') ",req.body.hasOwnProperty('Ssn') );
           console.log("req.body.Ssn != '' ",req.body.Ssn != "" );
-          console.log("req.body.hasOwnProperty('Occupation') ",req.body.hasOwnProperty('Occupation') );
-          console.log("req.body.Occupation != '' ",req.body.Occupation != "" );
-          console.log("req.body.hasOwnProperty('Address') ",req.body.hasOwnProperty('Address') );
-          console.log("req.body.Address != '' ",req.body.Address != "" );
-          console.log("req.body.hasOwnProperty('Apt') ",req.body.hasOwnProperty('Apt') );
-          console.log("req.body.Apt != '' ",req.body.Apt != "" );
-          console.log("req.body.hasOwnProperty('City') ",req.body.hasOwnProperty('City') );
-          console.log("req.body.City != '' ",req.body.City != "" );
-          console.log("req.body.hasOwnProperty('State') ",req.body.hasOwnProperty('State') );
-          console.log("req.body.State != '' ",req.body.State != "" );
-          console.log("req.body.hasOwnProperty('Zip') ",req.body.hasOwnProperty('Zip') );
-          console.log("req.body.Zip != '' ",req.body.Zip != "" );
-          console.log("req.body.hasOwnProperty('PhoneType1') ",req.body.hasOwnProperty('PhoneType1') );
-          console.log("req.body.PhoneType1 != '' ",req.body.PhoneType1 != "" );
-          console.log("req.body.hasOwnProperty('PhoneNumber1') ",req.body.hasOwnProperty('PhoneNumber1') );
-          console.log("req.body.PhoneNumber1 != '' ",req.body.PhoneNumber1 != "" );
-          console.log("req.body.hasOwnProperty('Ext1') ",req.body.hasOwnProperty('Ext1') );
-          console.log("req.body.Ext1 != '' ",req.body.Ext1 != "" );
-          console.log("req.body.hasOwnProperty('StateResident') ",req.body.hasOwnProperty('StateResident') );
-          console.log("req.body.StateResident != '' ",req.body.StateResident != "" );
-          console.log("req.body.hasOwnProperty('LivedAnother2015') ",req.body.hasOwnProperty('LivedAnother2015') );
-          console.log("req.body.LivedAnother2015 != '' ",req.body.LivedAnother2015 != "" );
-          console.log("req.body.hasOwnProperty('Tax') ",req.body.hasOwnProperty('Tax') );
-          console.log("req.body.Tax != '' ",req.body.Tax != "" );
-          console.log("req.body.hasOwnProperty('Legally') ",req.body.hasOwnProperty('Legally') );
-          console.log("req.body.Legally != '' ",req.body.Legally != "" );
-          console.log("req.body.hasOwnProperty('MaritalStatus') ",req.body.hasOwnProperty('MaritalStatus') );
-          console.log("req.body.MaritalStatus != '' ",req.body.MaritalStatus != "" );
-          console.log("req.body.hasOwnProperty('Spouse') ",req.body.hasOwnProperty('Spouse') );
-          console.log("req.body.Spouse != '' ",req.body.Spouse != "");
+          // console.log("req.body.hasOwnProperty('Occupation') ",req.body.hasOwnProperty('Occupation') );
+          // console.log("req.body.Occupation != '' ",req.body.Occupation != "" );
+          // console.log("req.body.hasOwnProperty('Address') ",req.body.hasOwnProperty('Address') );
+          // console.log("req.body.Address != '' ",req.body.Address != "" );
+          // console.log("req.body.hasOwnProperty('Apt') ",req.body.hasOwnProperty('Apt') );
+          // console.log("req.body.Apt != '' ",req.body.Apt != "" );
+          // console.log("req.body.hasOwnProperty('City') ",req.body.hasOwnProperty('City') );
+          // console.log("req.body.City != '' ",req.body.City != "" );
+          // console.log("req.body.hasOwnProperty('State') ",req.body.hasOwnProperty('State') );
+          // console.log("req.body.State != '' ",req.body.State != "" );
+          // console.log("req.body.hasOwnProperty('Zip') ",req.body.hasOwnProperty('Zip') );
+          // console.log("req.body.Zip != '' ",req.body.Zip != "" );
+          // console.log("req.body.hasOwnProperty('PhoneType1') ",req.body.hasOwnProperty('PhoneType1') );
+          // console.log("req.body.PhoneType1 != '' ",req.body.PhoneType1 != "" );
+          // console.log("req.body.hasOwnProperty('PhoneNumber1') ",req.body.hasOwnProperty('PhoneNumber1') );
+          // console.log("req.body.PhoneNumber1 != '' ",req.body.PhoneNumber1 != "" );
+          // console.log("req.body.hasOwnProperty('Ext1') ",req.body.hasOwnProperty('Ext1') );
+          // console.log("req.body.Ext1 != '' ",req.body.Ext1 != "" );
+          // console.log("req.body.hasOwnProperty('StateResident') ",req.body.hasOwnProperty('StateResident') );
+          // console.log("req.body.StateResident != '' ",req.body.StateResident != "" );
+          // console.log("req.body.hasOwnProperty('LivedAnother2015') ",req.body.hasOwnProperty('LivedAnother2015') );
+          // console.log("req.body.LivedAnother2015 != '' ",req.body.LivedAnother2015 != "" );
+          // console.log("req.body.hasOwnProperty('Tax') ",req.body.hasOwnProperty('Tax') );
+          // console.log("req.body.Tax != '' ",req.body.Tax != "" );
+          // console.log("req.body.hasOwnProperty('Legally') ",req.body.hasOwnProperty('Legally') );
+          // console.log("req.body.Legally != '' ",req.body.Legally != "" );
+          // console.log("req.body.hasOwnProperty('MaritalStatus') ",req.body.hasOwnProperty('MaritalStatus') );
+          // console.log("req.body.MaritalStatus != '' ",req.body.MaritalStatus != "" );
+          // console.log("req.body.hasOwnProperty('Spouse') ",req.body.hasOwnProperty('Spouse') );
+          // console.log("req.body.Spouse != '' ",req.body.Spouse != "");
 
           console.log(req.body);
 
-        res.send(200, {success: false, message: "One of this fields has no value: FirstName,Minitial,LastName,JrSr,BirthDate,Ssn,Occupation,Address,Apt,City,State,Zip,PhoneNumber1,Ext1,StateResident,LivedAnother201,Tax,Legally,MaritalStatus,Spouse"});
+        res.send(200, {success: false, message: "One of this fields has no value: FirstName,LastName,BirthDate,Ssn"});
         return next(false);
      }
 

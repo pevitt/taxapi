@@ -46,6 +46,7 @@ module.exports = function(server, db_config){
   server.post('/unemployment/:userId', (req, res, next) => {
     if(req.params.userId && isInteger(req.params.userId) ){
       if( req.body.hasOwnProperty('Tsj') && req.body.Tsj  != "" && 
+          req.body.hasOwnProperty('FormName') && req.body.FormName  != "" &&
           req.body.hasOwnProperty('Name') && req.body.Name  != "" && 
           req.body.hasOwnProperty('FirstName') && req.body.FirstName  != "" && 
           req.body.hasOwnProperty('LastName') && req.body.LastName  != "" && 
@@ -69,21 +70,13 @@ module.exports = function(server, db_config){
           req.body.hasOwnProperty('StateHolding') && req.body.StateHolding  != "" && 
           req.body.hasOwnProperty('LocalPayment') && req.body.LocalPayment  != "" && 
           req.body.hasOwnProperty('LocalHolding') && req.body.LocalHolding  != "" && 
-          req.body.hasOwnProperty('LocalityName') && req.body.LocalityName  != "" && 
-          req.body.hasOwnProperty('P2015SA5') && req.body.P2015SA5  != "" && 
-          req.body.hasOwnProperty('P2015SA29') && req.body.P2015SA29  != "" && 
-          req.body.hasOwnProperty('P2015AGI') && req.body.P2015AGI  != "" && 
-          req.body.hasOwnProperty('P2015State5') && req.body.P2015State5  != "" && 
-          req.body.hasOwnProperty('P2015Filling') && req.body.P2015Filling  != "" && 
-          req.body.hasOwnProperty('P2015Form1040') && req.body.P2015Form1040  != "" && 
-          req.body.hasOwnProperty('P2015Taxable') && req.body.P2015Taxable  != "" && 
-          req.body.hasOwnProperty('RefundAmount') && req.body.RefundAmount   != "" && 
-          req.body.hasOwnProperty('MFS') && req.body.MFS  != "")
+          req.body.hasOwnProperty('LocalityName') && req.body.LocalityName  != "")
       {
 
           var _sqlparams = [];
 
           _sqlparams.push(req.body.Tsj);
+          _sqlparams.push(req.body.FormName);
           _sqlparams.push(req.body.Ein);
           _sqlparams.push(req.body.Name);
           _sqlparams.push(req.body.NameCont);
@@ -112,21 +105,13 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.LocalPayment);
           _sqlparams.push(req.body.LocalHolding);
           _sqlparams.push(req.body.LocalityName);
-          _sqlparams.push(req.body.P2015SA5);
-          _sqlparams.push(req.body.P2015SA29);
-          _sqlparams.push(req.body.P2015AGI);
-          _sqlparams.push(req.body.P2015State5);
-          _sqlparams.push(req.body.P2015Filling);
-          _sqlparams.push(req.body.P2015Form1040);
-          _sqlparams.push(req.body.P2015Taxable);
-          _sqlparams.push(req.body.RefundAmount);
-          _sqlparams.push(req.body.MFS);
+          _sqlparams.push(req.body.Benefits);
           _sqlparams.push(req.body.FormInfoId);
           _sqlparams.push(req.params.userId);
           
           //if record doesn't exist we create it
           //inserting new rpersonal profile
-          var queryInsert = "INSERT INTO " + table + " (`Tsj`,`Ein`,`Name`,`NameCont`,`Street`,`City`,`FirstName`,`LastName`,`Street2`,`City2`,`Compensation`,`CompRepaidYear`,`StateTaxCredits`,`TaxYear`,`FederalTax`,`RTAAPay`,`DFor`,`Market`,`Mfc`,`Agriculture`,`TaxGrants`,`TradeBussiness`,`State`,`StateID`,`StateUnemploy`,`StateHolding`,`LocalPayment`,`LocalHolding`,`LocalityName`,`P2015SA5`,`P2015SA29`,`P2015AGI`,`P2015State5`,`P2015Filling`,`P2015Form1040`,`P2015Taxable`,`RefundAmount`,`MFS`,`UserID`,`FormInfoId`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+          var queryInsert = "INSERT INTO " + table + " (`Tsj`,`FormName`,`Ein`,`Name`,`NameCont`,`Street`,`City`,`FirstName`,`LastName`,`Street2`,`City2`,`Compensation`,`CompRepaidYear`,`StateTaxCredits`,`TaxYear`,`FederalTax`,`RTAAPay`,`DFor`,`Market`,`Mfc`,`Agriculture`,`TaxGrants`,`TradeBussiness`,`State`,`StateID`,`StateUnemploy`,`StateHolding`,`LocalPayment`,`LocalHolding`,`LocalityName`,`Benefits`,`FormInfoId`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
           conectionDB();
 
@@ -164,6 +149,7 @@ module.exports = function(server, db_config){
       var _sqlparams = [];
 
       _sqlparams.push(req.body.Tsj);
+      _sqlparams.push(req.body.FormName);
           _sqlparams.push(req.body.Ein);
           _sqlparams.push(req.body.Name);
           _sqlparams.push(req.body.NameCont);
@@ -192,18 +178,10 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.LocalPayment);
           _sqlparams.push(req.body.LocalHolding);
           _sqlparams.push(req.body.LocalityName);
-          _sqlparams.push(req.body.P2015SA5);
-          _sqlparams.push(req.body.P2015SA29);
-          _sqlparams.push(req.body.P2015AGI);
-          _sqlparams.push(req.body.P2015State5);
-          _sqlparams.push(req.body.P2015Filling);
-          _sqlparams.push(req.body.P2015Form1040);
-          _sqlparams.push(req.body.P2015Taxable);
-          _sqlparams.push(req.body.RefundAmount);
-          _sqlparams.push(req.body.MFS);
+          _sqlparams.push(req.body.Benefits);
           _sqlparams.push(req.params.unemploymentId);
    
-      var queryInsert = "UPDATE " + table + " SET `Tsj` = ?, `Ein` = ?, `Name` = ?, `NameCont` = ?, `Street` = ?, `City` = ?, `FirstName` = ?, `LastName` = ?, `Street2` = ?, `City2` = ?, `Compensation` = ?, `CompRepaidYear` = ?, `StateTaxCredits` = ?, `TaxYear` = ?, `FederalTax` = ?, `RTAAPay` = ?, `DFor` = ?, `Market` = ?, `Mfc` = ?, `Agriculture` = ?, `TaxGrants` = ?, `TradeBussiness` = ?, `State` = ?, `StateID` = ?, `StateUnemploy` = ?, `StateHolding` = ?, `LocalPayment` = ?, `LocalHolding` = ?, `LocalityName` = ?, `P2015SA5` = ?, `P2015SA29` = ?, `P2015AGI` = ?, `P2015State5` = ?, `P2015Filling` = ?, `P2015Form1040` = ?, `P2015Taxable` = ?, `RefundAmount` = ?, `MFS` = ? WHERE `Id` = ?;";
+      var queryInsert = "UPDATE " + table + " SET `Tsj` = ?,`FormName` = ?, `Ein` = ?, `Name` = ?, `NameCont` = ?, `Street` = ?, `City` = ?, `FirstName` = ?, `LastName` = ?, `Street2` = ?, `City2` = ?, `Compensation` = ?, `CompRepaidYear` = ?, `StateTaxCredits` = ?, `TaxYear` = ?, `FederalTax` = ?, `RTAAPay` = ?, `DFor` = ?, `Market` = ?, `Mfc` = ?, `Agriculture` = ?, `TaxGrants` = ?, `TradeBussiness` = ?, `State` = ?, `StateID` = ?, `StateUnemploy` = ?, `StateHolding` = ?, `LocalPayment` = ?, `LocalHolding` = ?, `LocalityName` = ?,`Benefits` = ? WHERE `Id` = ?;";
 
       conectionDB();
 
