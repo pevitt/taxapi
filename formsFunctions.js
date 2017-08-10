@@ -12,7 +12,7 @@
         return next(false);
       }
       res.send(200, {success: true, message:"Inserted successfully"});
-       n next(false);
+      return next(false);
 
     });
   }
