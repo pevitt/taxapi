@@ -111,7 +111,7 @@ module.exports = function(server, db_config){
           
           //if record doesn't exist we create it
           //inserting new rpersonal profile
-          var queryInsert = "INSERT INTO " + table + " (`Tsj`,`FormName`,`Ein`,`Name`,`NameCont`,`Street`,`City`,`FirstName`,`LastName`,`Street2`,`City2`,`Compensation`,`CompRepaidYear`,`StateTaxCredits`,`TaxYear`,`FederalTax`,`RTAAPay`,`DFor`,`Market`,`Mfc`,`Agriculture`,`TaxGrants`,`TradeBussiness`,`State`,`StateID`,`StateUnemploy`,`StateHolding`,`LocalPayment`,`LocalHolding`,`LocalityName`,`Benefits`,`FormInfoId`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+          var queryInsert = "INSERT INTO " + table + " (`Tsj`,`FormName`,`Ein`,`Name`,`NameCont`,`Street`,`City`,`FirstName`,`LastName`,`Street2`,`City2`,`Compensation`,`CompRepaidYear`,`StateTaxCredits`,`TaxYear`,`FederalTax`,`RTAAPay`,`DFor`,`Market`,`Mfc`,`Agriculture`,`TaxGrants`,`TradeBussiness`,`State`,`StateID`,`StateUnemploy`,`StateHolding`,`LocalPayment`,`LocalHolding`,`LocalityName`,`Benefits`,`FormInfoId`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
           conectionDB();
 

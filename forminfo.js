@@ -110,9 +110,9 @@ module.exports = function(server, db_config){
 
     if(req.params.UserId && isInteger(req.params.UserId) ){
       
-      var query = "SELECT d.*,i.NameForm, i.Amount, u.Name, u.LastName FROM " + detail + " AS d INNER JOIN " + table + " AS i ON d.FormInfoId = i.Id";
+      var query = "SELECT d.UserId, d.FormInfoId, d.Status, i.NameForm, i.Amount, Count(i.Amount) as Counts, SUM(i.Amount) as Total FROM " + detail + " AS d INNER JOIN " + table + " AS i ON d.FormInfoId = i.Id";
       query = query + "  INNER JOIN " + unemploy + " AS u ON u.Id = d.FormId";
-      query = query + "  where d.UserId = ?";
+      query = query + "  where d.UserId = ? GROUP BY d.UserId, d.FormInfoId, d.Status,i.NameForm, i.Amount";
 
       conectionDB();
 
