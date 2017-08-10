@@ -144,9 +144,6 @@ module.exports = function(server, db_config){
     return next();
   });
 
-
-  
-  
   server.put('/forminfo/:FormInfoId', (req, res, next) => {
     if(req.params.FormInfoId && isInteger(req.params.FormInfoId) ){
 
@@ -194,12 +191,12 @@ module.exports = function(server, db_config){
     }); 
 
     connection.on('error', function(err) {
-      console.log('db error', err.code);
-      if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      console.log(table + ' db error', err.code);
+      /*if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
         conectionDB();                         
       } else {                                      
         throw err;                                  
-      }
+      }*/
     });                               
   }
 

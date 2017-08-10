@@ -1,6 +1,7 @@
 'use strict';
 
 var mysql = require('mysql');
+var formFunctions = require('./formsFunctions.js');
 
 module.exports = function(server, db_config){
 
@@ -123,13 +124,13 @@ module.exports = function(server, db_config){
               return next(false);
             }
 
-            res.send(200, {success: true, message:"Inserted successfully"});
-
+            //LLAMAR A LA FUNCION
             connection.end();
+            conectionDB();
 
-            return next(false);
+            return formFunctions.insert_into_forms_detail (connection, req.params.userId, result.insertId, res, next);
+
           });
-        
         
      }else{    
         res.send(200, {success: false, message: "One of this fields has no value: FirstName,Minitial,LastName,JrSr,BirthDate,Ssn,Occupation,Address,Apt,City,State,Zip,PhoneNumber1,Ext1,StateResident,LivedAnother201,Tax,Legally,MaritalStatus,Spouse"});
