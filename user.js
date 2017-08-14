@@ -28,7 +28,7 @@ module.exports = function(server, db_config, secret){
               }
               connection.end();
 
-              if(result != undefined && result[0] != undefined){
+              if( result != undefined  && result[0] == undefined ){
                 //insert user
                 var query = "INSERT INTO " + table + " (`email`,`password`,`salt`) VALUES (?,?,?);";
                 var salt = genRandomString(16); /** Gives us salt of length 16 */
@@ -44,7 +44,7 @@ module.exports = function(server, db_config, secret){
                     return next(false);
                   }
                   
-                  res.send(200, {success: false, message:"Inserted successfully"});
+                  res.send(200, {success: true, message:"Inserted successfully"});
 
                   connection.end();
 
