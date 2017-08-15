@@ -1,7 +1,6 @@
 'use strict';
 
 var restify = require('restify');
-var jwtr = require('restify-jwt');
 var jwt = require('jsonwebtoken');
 var cors = require('cors');
 
