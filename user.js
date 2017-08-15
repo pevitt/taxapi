@@ -9,76 +9,6 @@ module.exports = function(server, db_config, secret){
   var connection; 
   var table = 'tx_user';
 
-  server.post('/user/create/', (req, res, next) => {
-    if(req.body != undefined){
-      if( req.body.hasOwnProperty('email') && req.body.hasOwnProperty('password') && req.body.hasOwnProperty('password_confirm')){
-        if(req.body.email != "" && req.body.password != "" &&  req.body.password_confirm != ""){
-          if(req.body.password == req.body.password_confirm){
-
-            var consult = "Select * From " + table + " WHERE email = ? ;";
-
-            conectionDB();
-
-            connection.query(consult , [req.body.email], function (err, result, fields) {
-      
-              if (err){
-                res.send(500, {message: err});
-                connection.end();
-                return next(false);
-              }
-              connection.end();
-
-              if( result != undefined  && result[0] == undefined ){
-                //insert user
-                var query = "INSERT INTO " + table + " (`email`,`password`,`salt`) VALUES (?,?,?);";
-                var salt = genRandomString(16); /** Gives us salt of length 16 */
-                var passwordData = sha512(req.body.password, salt);
-
-                conectionDB();
-
-                connection.query(query , [req.body.email, passwordData.passwordHash, passwordData.salt], function (err, result, fields) {
-          
-                  if (err){
-                    res.send(500, {message: err});
-                    connection.end();
-                    return next(false);
-                  }
-                  
-                  res.send(200, {success: true, message:"Inserted successfully"});
-
-                  connection.end();
-
-                  return next(false);
-                });
-              }else{
-
-                res.send(200, {success: false, message:"Email already exists"}); 
-                return next(false);
-              }
-               
-              
-            });
-
-          }else{
-            //match the passwords
-            res.send(200, {success:false, message:"Passwords are differents"});
-          }
-        }else{
-          //data cant be null
-          res.send(200, {success:false, message:"Data can't be null"});
-        }
-      }else{
-        //missin parameter
-        res.send(200, {success:false, message:"Missing parameters"});
-      }
-    }else{
-      //missin parameter
-        res.send(200, {success:false, message:"Wrong format"});
-    }
-
-    return next(false);
-  });  
-
   server.post('/user/login/', (req, res, next) => {
     
     if(req.body != undefined){
@@ -91,42 +21,45 @@ module.exports = function(server, db_config, secret){
           conectionDB();
 
           connection.query(query , [req.body.email], function (err, result, fields) {
-      
+            connection.end();
             if (err){
               res.send(500, {message: err});
-              connection.end();
               return next(false);
             }
 
-            if(result != undefined && result[0] != undefined && result[0].salt != undefined){
-              var user = result[0];
+            if(result != undefined && result[0] != undefined){
+                var user = result[0];
 
-              var passwordData = sha512(req.body.password, user.salt);
-
-              if(passwordData.passwordHash == user.password){
-
-                var token = jwt.sign(user, secret , {
-                  expiresIn: 1440 // expires in 24 hours
-                });
-
-                // return the information including token as JSON
                 res.json({
                   success: true,
                   message: 'logged in successfully!',
-                  id: user.id,
-                  token: token
+                  id: user.id
                 });
 
-              }else{
-
-                //missin parameter
-                res.send(200, {success:false, message:"Password Invalid"});
-
-              }
-            }else{
-              //missin parameter
-              res.send(200, {success:false, message:"User Doesn't Exist"});
               
+            }else{
+              //user dont exist so we create a new one 
+              var query = "INSERT INTO " + table + " (`email`) VALUES (?);";
+              conectionDB();
+
+              connection.query(query , [req.body.email], function (err, result, fields) {
+        
+                if (err){
+                  res.send(500, {message: err});
+                  connection.end();
+                  return next(false);
+                }
+                
+               res.json({
+                  success: true,
+                  message: 'logged in successfully!',
+                  id: result.insertId
+                });
+
+                connection.end();
+
+                return next(false);
+              });
             }
             
             connection.end();

@@ -3,6 +3,13 @@
 var restify = require('restify');
 var jwt = require('jsonwebtoken');
 var cors = require('cors');
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./appfirebase.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 var port = process.env.PORT || 3000;
 
@@ -11,19 +18,19 @@ var server = restify.createServer({
   version: '1.0.0'
 })
 
-var db_config = {
+/*var db_config = {
   host: "localhost",
   user: "root",
   password: "",
   database: "tax"
-};
+};*/
 
-// var db_config = {
-//   host: "69.87.220.221",
-//   user: "admin_pehamr",
-//   password: "Jimmy.ascacc31130724",
-//   database: "admin_tax_pupilo"
-// };
+var db_config = {
+  host: "69.87.220.221",
+  user: "admin_pehamr",
+  password: "Jimmy.ascacc31130724",
+  database: "admin_tax_pupilo"
+};
 
 var secretToken = '1d=5YA@t_d/+_E%h';
 
@@ -31,7 +38,7 @@ server.use(restify.plugins.bodyParser());
 
 server.pre(cors());
 
-server.use(function (req, res, next){
+/*server.use(function (req, res, next){
     if(req.url == '/user/create/' ||  req.url == '/user/login/'){
         return next();
     }
@@ -57,7 +64,7 @@ server.use(function (req, res, next){
       });
       return next(false);
     }
-});
+});*/
 
 require('./user')(server, db_config, secretToken);
 require('./personalProfile')(server, db_config);
