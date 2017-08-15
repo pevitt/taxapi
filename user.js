@@ -15,26 +15,48 @@ module.exports = function(server, db_config, secret){
         if(req.body.email != "" && req.body.password != "" &&  req.body.password_confirm != ""){
           if(req.body.password == req.body.password_confirm){
 
-            var query = "INSERT INTO " + table + " (`email`,`password`,`salt`) VALUES (?,?,?);";
-
-            var salt = genRandomString(16); /** Gives us salt of length 16 */
-            var passwordData = sha512(req.body.password, salt);
+            var consult = "Select * From " + table + " WHERE email = ? ;";
 
             conectionDB();
 
-            connection.query(query , [req.body.email, passwordData.passwordHash, passwordData.salt], function (err, result, fields) {
+            connection.query(consult , [req.body.email], function (err, result, fields) {
       
               if (err){
                 res.send(500, {message: err});
                 connection.end();
                 return next(false);
               }
-              
-              res.send(200, {success: false, message:"Inserted successfully"});
-
               connection.end();
 
-              return next(false);
+              if( result != undefined  && result[0] == undefined ){
+                //insert user
+                var query = "INSERT INTO " + table + " (`email`,`password`,`salt`) VALUES (?,?,?);";
+                var salt = genRandomString(16); /** Gives us salt of length 16 */
+                var passwordData = sha512(req.body.password, salt);
+
+                conectionDB();
+
+                connection.query(query , [req.body.email, passwordData.passwordHash, passwordData.salt], function (err, result, fields) {
+          
+                  if (err){
+                    res.send(500, {message: err});
+                    connection.end();
+                    return next(false);
+                  }
+                  
+                  res.send(200, {success: true, message:"Inserted successfully"});
+
+                  connection.end();
+
+                  return next(false);
+                });
+              }else{
+
+                res.send(200, {success: false, message:"Email already exists"}); 
+                return next(false);
+              }
+               
+              
             });
 
           }else{
