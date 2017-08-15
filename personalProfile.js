@@ -273,11 +273,11 @@ module.exports = function(server, db_config){
 
     connection.on('error', function(err) {
       console.log('db error', err.code);
-      if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      /*if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
         conectionDB();                         
       } else {                                      
         throw err;                                  
-      }
+      }*/
     });                               
   }
 

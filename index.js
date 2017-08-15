@@ -8,8 +8,13 @@ var admin = require("firebase-admin");
 var serviceAccount = require("./appfirebase.json");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://appfirebase-9953b.firebaseio.com"
 });
+
+
+// Initialize the default app
+var defaultAuth = admin.auth();
 
 var port = process.env.PORT || 3000;
 
@@ -32,13 +37,11 @@ var db_config = {
   database: "admin_tax_pupilo"
 };
 
-var secretToken = '1d=5YA@t_d/+_E%h';
-
 server.use(restify.plugins.bodyParser());
 
 server.pre(cors());
 
-/*server.use(function (req, res, next){
+server.use(function (req, res, next){
     if(req.url == '/user/create/' ||  req.url == '/user/login/'){
         return next();
     }
@@ -47,16 +50,19 @@ server.pre(cors());
     var token = req.headers['authorization'];
     // decode token
     if (token) {
-      // verifies secret and checks exp
-      jwt.verify(token, secretToken, function(err, decoded) {      
-        if (err) {
-          return res.json({ success: false, message: err });    
-        } else {
-          // if everything is good, save to request for use in other routes
-          req.decoded = decoded;  
-          return next();
-        }
+
+      defaultAuth.verifyIdToken(token).then(function(decodedToken) {
+
+        console.log("TOKEN: ",decodedToken);
+
+        return next();
+
+      }).catch(function(error) {
+        
+        return res.json({ success: false, message: error });
+
       });
+
     } else {
       res.send(500,{ 
           success: false, 
@@ -64,9 +70,9 @@ server.pre(cors());
       });
       return next(false);
     }
-});*/
+});
 
-require('./user')(server, db_config, secretToken);
+require('./user')(server, db_config);
 require('./personalProfile')(server, db_config);
 require('./unemployment.js')(server, db_config);
 require('./forminfo.js')(server, db_config);

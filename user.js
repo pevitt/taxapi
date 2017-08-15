@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
-module.exports = function(server, db_config, secret){
+module.exports = function(server, db_config){
 
   var connection; 
   var table = 'tx_user';
@@ -12,6 +12,7 @@ module.exports = function(server, db_config, secret){
   server.post('/user/login/', (req, res, next) => {
     
     if(req.body != undefined){
+      
       if( req.body.hasOwnProperty('email')){
       
         if(req.body.email != "" ){
@@ -95,40 +96,15 @@ module.exports = function(server, db_config, secret){
 
     connection.on('error', function(err) {
       console.log('db error', err.code);
-      if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      /*if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
         conectionDB();                         
       } else {                                      
         throw err;                                  
-      }
+      }*/
     });                               
   }
 
-  /**
-   * generates random string of characters i.e salt
-   * @function
-   * @param {number} length - Length of the random string.
-   */
-  var genRandomString = function(length){
-      return crypto.randomBytes(Math.ceil(length/2))
-              .toString('hex') /** convert to hexadecimal format */
-              .slice(0,length);   /** return required number of characters */
-  };
-
-  /**
-   * hash password with sha512.
-   * @function
-   * @param {string} password - List of required fields.
-   * @param {string} salt - Data to be validated.
-   */
-  var sha512 = function(password, salt){
-      var hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
-      hash.update(password);
-      var value = hash.digest('hex');
-      return {
-          salt:salt,
-          passwordHash:value
-      };
-  };
+  
 
 };
 
