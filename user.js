@@ -60,9 +60,9 @@ module.exports = function(server, db_config, secret){
   server.post('/user/login/', (req, res, next) => {
     
     if(req.body != undefined){
-      if( req.body.hasOwnProperty('email') && req.body.hasOwnProperty('password')){
+      if( req.body.hasOwnProperty('email')){
       
-        if(req.body.email != "" && req.body.password != "" &&  req.body.password_confirm != ""){
+        if(req.body.email != "" ){
 
           var query = "Select * From " + table + " WHERE email = ?";
 
