@@ -36,7 +36,6 @@ module.exports = function(server, db_config){
         }
 
       });
-
     return next();
   });
 
@@ -66,7 +65,6 @@ module.exports = function(server, db_config){
         }
 
       });
-
     return next();
   });
 
@@ -112,10 +110,10 @@ module.exports = function(server, db_config){
       
       var query = "SELECT d.UserId, d.FormInfoId, d.Status, i.NameForm, i.Amount, Count(i.Amount) as Counts, SUM(i.Amount) as Total FROM " + detail + " AS d INNER JOIN " + table + " AS i ON d.FormInfoId = i.Id";
       query = query + "  INNER JOIN " + unemploy + " AS u ON u.Id = d.FormId";
-      query = query + "  where d.UserId = ? GROUP BY d.UserId, d.FormInfoId, d.Status,i.NameForm, i.Amount";
+      query = query + "  where d.UserId = ? AND d.Status = 0 GROUP BY d.UserId, d.FormInfoId, d.Status,i.NameForm, i.Amount";
 
       conectionDB();
-
+ 
       connection.query(query , [req.params.UserId], function (err, result, fields) {
         
         if (err){
@@ -179,6 +177,38 @@ module.exports = function(server, db_config){
       return next(false);  
     }
     return next();
+  });
+
+  server.put('/forminfo/payforms/:UserId', (req, res, next) => {
+
+    if(req.params.UserId && isInteger(req.params.UserId) ){
+
+   
+      var queryInsert = "UPDATE `tx_forms_detail` SET `Status` = 1 WHERE `UserId` = ?;";
+
+      conectionDB();
+
+      connection.query(queryInsert , [req.params.UserId], function (err, result, fields) {
+
+        if (err){
+          res.send(500, {message: err});
+          connection.end();
+          return next(false);
+        }
+
+        res.send(200, {success: true, message:"Updated successfully"});
+
+        connection.end();
+
+        return next(false);
+      });            
+
+    } else{
+      res.send(200, {success: false, message: "The User Id id is required"});
+      return next(false);  
+    }
+    return next();
+
   });
 
   function conectionDB(){

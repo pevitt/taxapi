@@ -41,7 +41,7 @@ server.use(restify.plugins.bodyParser());
 
 server.pre(cors());
 
-server.use(function (req, res, next){
+/*server.use(function (req, res, next){
     if(req.url == '/user/create/' ||  req.url == '/user/login/'){
         return next();
     }
@@ -52,8 +52,6 @@ server.use(function (req, res, next){
     if (token) {
 
       defaultAuth.verifyIdToken(token).then(function(decodedToken) {
-
-        console.log("TOKEN: ",decodedToken);
 
         return next();
 
@@ -70,7 +68,7 @@ server.use(function (req, res, next){
       });
       return next(false);
     }
-});
+});*/
 
 require('./user')(server, db_config);
 require('./personalProfile')(server, db_config);
