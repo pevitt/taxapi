@@ -6,7 +6,7 @@ module.exports = function(server, db_config){
 
   var connection; 
   var table = 'tx_personal_info';
-
+  //obtener
   server.get('/personal_info/has/:userId', (req, res, next) => {
 
     if(req.params.userId && isInteger(req.params.userId) ){
@@ -29,7 +29,7 @@ module.exports = function(server, db_config){
           return next();
         }else{
           //missin parameter
-          res.json({success:true , hasdata: false});
+          res.json({success:false , hasdata: false});
           connection.end();
           return next();
         }
@@ -42,7 +42,7 @@ module.exports = function(server, db_config){
     }
     return next();
   });
-
+  //crear 
   server.post('/personal_info/:userId', (req, res, next) => {
     if(req.params.userId && isInteger(req.params.userId) ){
       if( req.body.hasOwnProperty('FirstName') && req.body.FirstName != "" && 
@@ -201,7 +201,7 @@ module.exports = function(server, db_config){
     }
     return next();
   });
-  
+  //modificar actualizar
   server.put('/personal_info/:personalProfileId', (req, res, next) => {
     if(req.params.personalProfileId && isInteger(req.params.personalProfileId) ){
 
