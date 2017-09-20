@@ -51,19 +51,7 @@ module.exports = function(server, db_config){
           req.body.hasOwnProperty('ssn') && req.body.ssn != "")
       {
 
-        //querying if a personal profile already exists
-        var querySelect = "SELECT * FROM " + table + " WHERE UserID =  ?";
-
-        conectionDB();
-
-        connection.query(querySelect , [req.params.userId], function (err, result, fields) {
-
-          if (err){
-            res.send(500, {message: err});
-            connection.end();
-            return next(false);
-          }
-          connection.end();
+        
           var _sqlparams = [];
 
           _sqlparams.push(req.body.ssn);
@@ -79,30 +67,6 @@ module.exports = function(server, db_config){
 
           console.log("insert child care: ",_sqlparams);
 
-          //if record exist we should update
-          if(result != undefined && result[0] != undefined){
-
-            //if record does exist we update it
-            var queryInsert = "UPDATE " + table + " SET `ssn` = ?,`ein` = ?,`AmoundPaid` = ?,`CareProvider` = ?,`Street` = ?,`City` = ?,`State` = ?,`Zip` = ?  WHERE UserID =  ?;";
-
-            conectionDB();
-
-            connection.query(queryInsert , _sqlparams, function (err, result, fields) {
-
-              if (err){
-                res.send(500, {message: err});
-                connection.end();
-                return next(false);
-              }
-
-              res.send(200, {success: true, message:"Updated successfully"});
-
-              connection.end();
-
-              return next(false);
-            });            
-
-          }else{
             //if record doesn't exist we create it
             //inserting new rpersonal profile
             var queryInsert = "INSERT INTO " + table + " (`ssn`,`ein`,`AmoundPaid`,`CareProvider`,`Street`,`City`,`State`,`Zip`,`FormInfoId`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?);";
@@ -123,9 +87,8 @@ module.exports = function(server, db_config){
 
               return next(false);
             });
-          }
-          // END inserting new personal profile
-        });
+          
+          // END inserting new personal profil
         
         
      }else{    
