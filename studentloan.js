@@ -5,9 +5,9 @@ var mysql = require('mysql');
 module.exports = function(server, db_config){
 
   var connection; 
-  var table = 'tx_form_childcare';
+  var table = 'tx_form_studentloan';
 
-  server.get('/form_childcare/has/:userId', (req, res, next) => {
+  server.get('/form_studentloan/has/:userId', (req, res, next) => {
 
     if(req.params.userId && isInteger(req.params.userId) ){
 
@@ -43,12 +43,11 @@ module.exports = function(server, db_config){
     return next();
   });
 
-  server.post('/form_childcare/:userId', (req, res, next) => {
+  server.post('/form_studentloan/:userId', (req, res, next) => {
     if(req.params.userId && isInteger(req.params.userId) ){
-      if( req.body.hasOwnProperty('City') && req.body.City != "" &&  
-          req.body.hasOwnProperty('State') && req.body.State != "" && 
-          req.body.hasOwnProperty('CareProvider') && req.body.CareProvider != "" && 
-          req.body.hasOwnProperty('ssn') && req.body.ssn != "")
+      if( req.body.hasOwnProperty('NameLender') && req.body.NameLender != "" &&  
+          req.body.hasOwnProperty('Student') && req.body.Student != "" && 
+          req.body.hasOwnProperty('InterestPaid') && req.body.InterestPaid)
       {
 
         //querying if a personal profile already exists
@@ -66,14 +65,9 @@ module.exports = function(server, db_config){
           connection.end();
           var _sqlparams = [];
 
-          _sqlparams.push(req.body.ssn);
-          _sqlparams.push(req.body.ein);
-          _sqlparams.push(req.body.AmoundPaid);
-          _sqlparams.push(req.body.CareProvider);
-          _sqlparams.push(req.body.Street);
-          _sqlparams.push(req.body.City);
-          _sqlparams.push(req.body.State);
-          _sqlparams.push(req.body.Zip);
+          _sqlparams.push(req.body.NameLender);
+          _sqlparams.push(req.body.Student);
+          _sqlparams.push(req.body.InterestPaid);
           _sqlparams.push(req.body.FormInfoId);
           _sqlparams.push(req.params.userId);
 
@@ -83,7 +77,7 @@ module.exports = function(server, db_config){
           if(result != undefined && result[0] != undefined){
 
             //if record does exist we update it
-            var queryInsert = "UPDATE " + table + " SET `ssn` = ?,`ein` = ?,`AmoundPaid` = ?,`CareProvider` = ?,`Street` = ?,`City` = ?,`State` = ?,`Zip` = ?  WHERE UserID =  ?;";
+            var queryInsert = "UPDATE " + table + " SET `NameLender` = ?,`Student` = ?,`InterestPaid` = ?  WHERE UserID =  ?;";
 
             conectionDB();
 
@@ -105,7 +99,7 @@ module.exports = function(server, db_config){
           }else{
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`ssn`,`ein`,`AmoundPaid`,`CareProvider`,`Street`,`City`,`State`,`Zip`,`FormInfoId`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`NameLender`,`Student`,`InterestPaid`,`FormInfoId`,`UserID`) VALUES (?,?,?,?,?);";
 
             conectionDB();
 
@@ -130,21 +124,20 @@ module.exports = function(server, db_config){
         
      }else{    
           
-          console.log("req.body.hasOwnProperty('ssn') ",req.body.hasOwnProperty('ssn') );
-          console.log("req.body.ssn != '' ",req.body.ssn != "" );
+          console.log("req.body.hasOwnProperty('NameLender') ",req.body.hasOwnProperty('NameLender') );
+          console.log("req.body.NameLender != '' ",req.body.NameLender != "" );
           
-          console.log("req.body.hasOwnProperty('City') ",req.body.hasOwnProperty('City') );
-          console.log("req.body.City != '' ",req.body.City != "" );
+          console.log("req.body.hasOwnProperty('Student') ",req.body.hasOwnProperty('Student') );
+          console.log("req.body.Student != '' ",req.body.Student != "" );
           
-          console.log("req.body.hasOwnProperty('CareProvider') ",req.body.hasOwnProperty('CareProvider') );
-          console.log("req.body.CareProvider != '' ",req.body.CareProvider != "" );
-          console.log("req.body.hasOwnProperty('State') ",req.body.hasOwnProperty('State') );
-          console.log("req.body.State != '' ",req.body.State != "" );
+          console.log("req.body.hasOwnProperty('InterestPaid') ",req.body.hasOwnProperty('InterestPaid') );
+          console.log("req.body.InterestPaid != '' ",req.body.CareProvider != "" );
+          
           
 
           console.log(req.body);
 
-        res.send(200, {success: false, message: "One of this fields has no value: State,City,CareProvider,ssn"});
+        res.send(200, {success: false, message: "One of this fields has no value: NameLender,Student,InterestPaid"});
         return next(false);
      }
 
@@ -155,23 +148,18 @@ module.exports = function(server, db_config){
     return next();
   });
   
-  server.put('/form_childcare/:ChildCareID', (req, res, next) => {
-    if(req.params.ChildCareID && isInteger(req.params.ChildCareID) ){
+  server.put('/form_studentloan/:StudentLoanID', (req, res, next) => {
+    if(req.params.ChildCareID && isInteger(req.params.StudentLoanID) ){
 
       var _sqlparams = [];
 
-           _sqlparams.push(req.body.ssn);
-          _sqlparams.push(req.body.ein);
-          _sqlparams.push(req.body.AmoundPaid);
-          _sqlparams.push(req.body.CareProvider);
-          _sqlparams.push(req.body.Street);
-          _sqlparams.push(req.body.City);
-          _sqlparams.push(req.body.State);
-          _sqlparams.push(req.body.Zip);
+          _sqlparams.push(req.body.NameLender);
+          _sqlparams.push(req.body.Student);
+          _sqlparams.push(req.body.InterestPaid);
          
-          _sqlparams.push(req.params.ChildCareID);
+          _sqlparams.push(req.params.StudentLoanID);
    
-      var queryUpdate = "UPDATE " + table + " SET `ssn` = ?,`ein` = ?,`AmoundPaid` = ?,`CareProvider` = ?,`Street` = ?,`City` = ?,`State` = ?,`Zip` = ?  WHERE Id =  ?;";
+      var queryUpdate = "UPDATE " + table + " SET `NameLender` = ?,`Student` = ?,`InterestPaid` = ?  WHERE Id =  ?;";
 
       conectionDB();
 
@@ -191,7 +179,7 @@ module.exports = function(server, db_config){
       });            
 
     } else{
-      res.send(200, {success: false, message: "The ChildCare id is required"});
+      res.send(200, {success: false, message: "The Student Loan id is required"});
       return next(false);  
     }
     return next();

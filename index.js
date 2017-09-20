@@ -23,19 +23,19 @@ var server = restify.createServer({
   version: '1.0.0'
 })
 
-/*var db_config = {
+var db_config = {
   host: "localhost",
   user: "root",
   password: "",
-  database: "tax"
-};*/
-
-var db_config = {
-  host: "69.87.220.221",
-  user: "admin_pehamr",
-  password: "Jimmy.ascacc31130724",
   database: "admin_tax_pupilo"
 };
+
+// var db_config = {
+//   host: "69.87.220.221",
+//   user: "admin_pehamr",
+//   password: "Jimmy.ascacc31130724",
+//   database: "admin_tax_pupilo"
+// };
 
 server.use(restify.plugins.bodyParser());
 
@@ -76,6 +76,7 @@ require('./unemployment.js')(server, db_config);
 require('./forminfo.js')(server, db_config);
 require('./formspouse.js')(server, db_config);
 require('./childcare.js')(server, db_config);
+require('./studentloan.js')(server, db_config);
 
 server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);
