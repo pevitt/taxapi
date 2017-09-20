@@ -75,6 +75,7 @@ require('./personalProfile')(server, db_config);
 require('./unemployment.js')(server, db_config);
 require('./forminfo.js')(server, db_config);
 require('./formspouse.js')(server, db_config);
+require('./childcare.js')(server, db_config);
 
 server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);
