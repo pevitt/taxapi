@@ -1,6 +1,7 @@
 'use strict';
 
 var mysql = require('mysql');
+var formFunctions = require('./formsFunctions.js');
 
 module.exports = function(server, db_config){
 
@@ -84,8 +85,9 @@ module.exports = function(server, db_config){
               res.send(200, {success: true, message:"Inserted successfully"});
 
               connection.end();
-
-              return next(false);
+              conectionDB();
+              //return next(false);
+              return formFunctions.insert_into_forms_detail (connection, req.params.userId, result.insertId, req.body.FormInfoId, res, next);
             });
           
           // END inserting new personal profil

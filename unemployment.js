@@ -128,7 +128,7 @@ module.exports = function(server, db_config){
             connection.end();
             conectionDB();
 
-            return formFunctions.insert_into_forms_detail (connection, req.params.userId, result.insertId, res, next);
+            return formFunctions.insert_into_forms_detail (connection, req.params.userId, result.insertId, req.body.FormInfoId, res, next);
 
           });
         

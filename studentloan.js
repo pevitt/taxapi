@@ -13,7 +13,7 @@ module.exports = function(server, db_config){
 
       var user = req.params.userId;
 
-      var query = "SELECT FirstName As Name FROM `tx_personal_info` WHERE UserID = ? UNION All SELECT CareProvider As Name FROM `tx_form_childcare` WHERE UserID = " + user + " UNION All SELECT FirstName As Name FROM `tx_form_spouse` WHERE UserID = " + user;
+      var query = "SELECT FirstName As Name FROM `tx_personal_info` WHERE UserID = ? UNION All SELECT FirstName As Name FROM `tx_form_spouse` WHERE UserID = " + user;
 
       conectionDB();
 

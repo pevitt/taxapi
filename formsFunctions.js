@@ -1,10 +1,10 @@
 
 
-  function insert_into_forms_detail (connection, userId, insertId, res, next){
+  function insert_into_forms_detail (connection, userId, insertId, forminfoid,res, next){
     queryInsert = "INSERT INTO `tx_forms_detail`(`UserId`,`FormInfoId`,`FormId`,`Status`) VALUES (?,?,?,0);";
             
             
-    connection.query(queryInsert , [userId , 1, insertId], function (err, result, fields) {
+    connection.query(queryInsert , [userId , forminfoid, insertId], function (err, result, fields) {
 
       if (err){
         res.send(500, {message: err});
