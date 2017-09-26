@@ -59,7 +59,7 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.FormName);
           _sqlparams.push(req.body.Ssn);
           _sqlparams.push(req.body.FirstName);
-          _sqlparams.push(req.body.LastName);
+          _sqlparams.push(req.body.Lastname);
           _sqlparams.push(req.body.Degree);
           _sqlparams.push(req.body.Enrollment);
           _sqlparams.push(req.body.ManyYears);
@@ -92,7 +92,7 @@ module.exports = function(server, db_config){
           
           //if record doesn't exist we create it
           //inserting new rpersonal profile
-          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ssn`, `FirstName`, `Lastname`, `Degree`, `Enrollment`, `ManyYears`, `Pursuing`, `TotalQ`, `AdditionalE`, `CollageName`, `GetForm`, `Eins`, `NameS`, `StreetS`, `CityS`, `StateS`, `ZipS`, `PaymentR`, `AmountB`, `ChangedMethod`, `AdjusmentM`, `SGrants`, `AdjusmentS`, `Box7`, `Box8`, `Box9`, `InsuranceC`, `GetFormBefore`, `UserID`, `FormInfoId`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ssn`, `FirstName`, `Lastname`, `Degree`, `Enrollment`, `ManyYears`, `Pursuing`, `TotalQ`, `AdditionalE`, `CollageName`, `GetForm`, `Eins`, `NameS`, `StreetS`, `CityS`, `StateS`, `ZipS`, `PaymentR`, `AmountB`, `ChangedMethod`, `AdjusmentM`, `SGrants`, `AdjusmentS`, `Box7`, `Box8`, `Box9`, `InsuranceC`, `GetFormBefore`, `UserID`, `FormInfoId`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
           conectionDB();
 
@@ -129,11 +129,12 @@ module.exports = function(server, db_config){
 
       var _sqlparams = [];
 
-      _sqlparams.push(req.body.Ts);
+      
+          _sqlparams.push(req.body.Ts);
           _sqlparams.push(req.body.FormName);
           _sqlparams.push(req.body.Ssn);
           _sqlparams.push(req.body.FirstName);
-          _sqlparams.push(req.body.LastName);
+          _sqlparams.push(req.body.Lastname);
           _sqlparams.push(req.body.Degree);
           _sqlparams.push(req.body.Enrollment);
           _sqlparams.push(req.body.ManyYears);
