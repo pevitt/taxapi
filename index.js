@@ -20,7 +20,8 @@ var port = process.env.PORT || 3000;
 
 var server = restify.createServer({
   name: 'myapp',
-  version: '1.0.0'
+  version: '1.0.0',
+  handleUncaughtExceptions : true
 })
 
 var db_config = {
@@ -30,12 +31,12 @@ var db_config = {
   database: "admin_tax_pupilo"
 };
 
-// var db_config = {
-//   host: "69.87.220.221",
-//   user: "admin_pehamr",
-//   password: "Jimmy.ascacc31130724",
-//   database: "admin_tax_pupilo"
-// };
+/*var db_config = {
+  host: "69.87.220.221",
+  user: "admin_pehamr",
+  password: "Jimmy.ascacc31130724",
+  database: "admin_tax_pupilo"
+};*/
 
 server.use(restify.plugins.bodyParser());
 
