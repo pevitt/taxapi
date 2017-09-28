@@ -78,6 +78,8 @@ require('./forminfo.js')(server, db_config);
 require('./formspouse.js')(server, db_config);
 require('./childcare.js')(server, db_config);
 require('./studentloan.js')(server, db_config);
+require('./formw2g.js')(server, db_config);
+require('./form8863.js')(server, db_config);
 
 server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);
