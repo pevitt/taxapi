@@ -9,6 +9,8 @@ module.exports = function(server, db_config){
   var detail = 'tx_forms_detail';
   var unemploy = 'tx_form_unemployment';
   var childcare = 'tx_form_childcare';
+  var w2g = 'tx_form_w2g';
+  var form88 = 'tx_form_8863';
   var user = 'tx_user';
   
   server.get('/forminfo/byname/:Name', (req, res, next) => {
@@ -112,12 +114,22 @@ module.exports = function(server, db_config){
       var userid = req.params.UserId;
 
       var query = "SELECT d.UserId, d.FormInfoId, d.Status, i.NameForm, i.Amount, Count(i.Amount) as Counts, SUM(i.Amount) as Total FROM " + detail + " AS d INNER JOIN " + table + " AS i ON d.FormInfoId = i.Id";
-      query = query + "  INNER JOIN " + unemploy + " AS u ON u.Id = d.FormId";
+      query = query + "  INNER JOIN " + unemploy + " AS u ON u.Id = d.FormId  AND u.FormInfoId = d.FormInfoId";
       query = query + "  where d.UserId = ? AND d.Status = 0 GROUP BY d.UserId, d.FormInfoId, d.Status,i.NameForm, i.Amount";
       query = query + " UNION ALL";
       query = query + " SELECT d.UserId, d.FormInfoId, d.Status, i.NameForm, i.Amount, Count(i.Amount) as Counts, SUM(i.Amount) as Total FROM " + detail + " AS d INNER JOIN " + table + " AS i ON d.FormInfoId = i.Id";
-      query = query + "  INNER JOIN " + childcare + " AS u ON u.Id = d.FormId";
+      query = query + "  INNER JOIN " + childcare + " AS u ON u.Id = d.FormId  AND u.FormInfoId = d.FormInfoId";
       query = query + "  where d.UserId = " + userid + " AND d.Status = 0 GROUP BY d.UserId, d.FormInfoId, d.Status,i.NameForm, i.Amount";
+      query = query + " UNION ALL";
+      query = query + " SELECT d.UserId, d.FormInfoId, d.Status, i.NameForm, i.Amount, Count(i.Amount) as Counts, SUM(i.Amount) as Total FROM " + detail + " AS d INNER JOIN " + table + " AS i ON d.FormInfoId = i.Id";
+      query = query + "  INNER JOIN " + form88 + " AS u ON u.Id = d.FormId  AND u.FormInfoId = d.FormInfoId";
+      query = query + "  where d.UserId = " + userid + " AND d.Status = 0 GROUP BY d.UserId, d.FormInfoId, d.Status,i.NameForm, i.Amount";
+      query = query + " UNION ALL";
+      query = query + " SELECT d.UserId, d.FormInfoId, d.Status, i.NameForm, i.Amount, Count(i.Amount) as Counts, SUM(i.Amount) as Total FROM " + detail + " AS d INNER JOIN " + table + " AS i ON d.FormInfoId = i.Id";
+      query = query + "  INNER JOIN " + w2g + " AS u ON u.id = d.FormId  AND u.FormInfoId = d.FormInfoId";
+      query = query + "  where d.UserId = " + userid + " AND d.Status = 0 GROUP BY d.UserId, d.FormInfoId, d.Status,i.NameForm, i.Amount";
+
+      //console.log('Mysql:', query);
 
       conectionDB();
  
