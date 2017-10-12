@@ -55,12 +55,8 @@ module.exports = function(server, db_config){
         
           var _sqlparams = [];
 
-          var ein = req.body.ein;
-
-
-
           _sqlparams.push(req.body.ssn);
-          _sqlparams.push(ein ? 1 : 0);
+          _sqlparams.push(req.body.ein);
           _sqlparams.push(req.body.AmoundPaid);
           _sqlparams.push(req.body.CareProvider);
           _sqlparams.push(req.body.Street);
@@ -86,7 +82,7 @@ module.exports = function(server, db_config){
                 return next(false);
               }
 
-              
+              //res.send(200, {success: true, message:"Inserted successfully"});
 
               connection.end();
               conectionDB();
