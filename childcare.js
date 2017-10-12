@@ -126,7 +126,7 @@ module.exports = function(server, db_config){
       var _sqlparams = [];
 
            _sqlparams.push(req.body.ssn);
-          _sqlparams.push(req.body.ein);
+          _sqlparams.push(req.body.ein ? 1 : 0);
           _sqlparams.push(req.body.AmoundPaid);
           _sqlparams.push(req.body.CareProvider);
           _sqlparams.push(req.body.Street);
