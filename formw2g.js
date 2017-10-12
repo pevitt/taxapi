@@ -110,7 +110,7 @@ module.exports = function(server, db_config){
           
           //if record doesn't exist we create it
           //inserting new rpersonal profile
-          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ein`, `Name`, `NameCont`, `Street`, `City`, `State`, `Zip`, `PhoneNumber`, `FirstNameW`, `LastNameW`, `StreetW`, `CityW`, `StateW`, `ZipW`, `AlteredW2`, `CorrectedW2`, `LotteryW`, `ElectronicW`, `CostTicket`, `GrossWin`, `DateWon`, `TypeWager`, `FedTax`, `TransactionW`, `Race`, `WinningsI`, `Cashier`, `Window`, `FirstID`, `SecondID`, `ST`, `PayerStateId`, `StateWinnings`, `StateTax`, `LocalWin`, `LocalWH`, `LocalityName`, `FormInfoId`, `UserID`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ein`, `Name`, `NameCont`, `Street`, `City`, `State`, `Zip`, `PhoneNumber`, `FirstNameW`, `LastNameW`, `StreetW`, `CityW`, `StateW`, `ZipW`, `AlteredW2`, `CorrectedW2`, `LotteryW`, `ElectronicW`, `CostTicket`, `GrossWin`, `DateWon`, `TypeWager`, `FedTax`, `TransactionW`, `Race`, `WinningsI`, `Cashier`, `Window`, `FirstID`, `SecondID`, `ST`, `PayerStateId`, `StateWinnings`, `StateTax`, `LocalWin`, `LocalWH`, `LocalityName`, `FormInfoId`, `UserID`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,Year(CURDATE()));";
 
           conectionDB();
 

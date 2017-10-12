@@ -55,8 +55,12 @@ module.exports = function(server, db_config){
         
           var _sqlparams = [];
 
+          var ein = req.body.ein;
+
+
+
           _sqlparams.push(req.body.ssn);
-          _sqlparams.push(req.body.ein);
+          _sqlparams.push(ein ? 1 : 0);
           _sqlparams.push(req.body.AmoundPaid);
           _sqlparams.push(req.body.CareProvider);
           _sqlparams.push(req.body.Street);
@@ -70,7 +74,7 @@ module.exports = function(server, db_config){
 
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`ssn`,`ein`,`AmoundPaid`,`CareProvider`,`Street`,`City`,`State`,`Zip`,`FormInfoId`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`ssn`,`ein`,`AmoundPaid`,`CareProvider`,`Street`,`City`,`State`,`Zip`,`FormInfoId`,`UserID`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,Year(CURDATE()));";
 
             conectionDB();
 
@@ -82,7 +86,7 @@ module.exports = function(server, db_config){
                 return next(false);
               }
 
-              res.send(200, {success: true, message:"Inserted successfully"});
+              
 
               connection.end();
               conectionDB();

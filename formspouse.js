@@ -108,7 +108,7 @@ module.exports = function(server, db_config){
           }else{
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`FirstName`,`LastName`,`BirthDate`,`DeathDate`,`ssn`,`Occupation`,`PhoneNumber`,`Ext`,`PhoneNumber2`,`Ext2`,`Cell`,`FormInfoID`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`FirstName`,`LastName`,`BirthDate`,`DeathDate`,`ssn`,`Occupation`,`PhoneNumber`,`Ext`,`PhoneNumber2`,`Ext2`,`Cell`,`FormInfoID`,`UserID`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,Year(CURDATE()));";
 
             conectionDB();
 

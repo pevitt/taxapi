@@ -103,7 +103,7 @@ module.exports = function(server, db_config){
 
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`NameLender`,`Student`,`InterestPaid`,`FormInfoId`,`UserID`) VALUES (?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`NameLender`,`Student`,`InterestPaid`,`FormInfoId`,`UserID`, `Year`) VALUES (?,?,?,?,?,Year(CURDATE()));";
 
             conectionDB();
 

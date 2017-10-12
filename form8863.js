@@ -92,7 +92,7 @@ module.exports = function(server, db_config){
           
           //if record doesn't exist we create it
           //inserting new rpersonal profile
-          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ssn`, `FirstName`, `Lastname`, `Degree`, `Enrollment`, `ManyYears`, `Pursuing`, `TotalQ`, `AdditionalE`, `CollageName`, `GetForm`, `Eins`, `NameS`, `StreetS`, `CityS`, `StateS`, `ZipS`, `PaymentR`, `AmountB`, `ChangedMethod`, `AdjusmentM`, `SGrants`, `AdjusmentS`, `Box7`, `Box8`, `Box9`, `InsuranceC`, `GetFormBefore`, `UserID`, `FormInfoId`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ssn`, `FirstName`, `Lastname`, `Degree`, `Enrollment`, `ManyYears`, `Pursuing`, `TotalQ`, `AdditionalE`, `CollageName`, `GetForm`, `Eins`, `NameS`, `StreetS`, `CityS`, `StateS`, `ZipS`, `PaymentR`, `AmountB`, `ChangedMethod`, `AdjusmentM`, `SGrants`, `AdjusmentS`, `Box7`, `Box8`, `Box9`, `InsuranceC`, `GetFormBefore`, `UserID`, `FormInfoId`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,Year(CURDATE()));";
 
           conectionDB();
 
