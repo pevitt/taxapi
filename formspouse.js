@@ -79,6 +79,7 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.Cell);
           _sqlparams.push(req.body.FormInfoID);
           _sqlparams.push(req.params.userId);
+          _sqlparams.push(req.body.Year);
 
           console.log("insert personal profile: ",_sqlparams);
 
@@ -108,7 +109,7 @@ module.exports = function(server, db_config){
           }else{
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`FirstName`,`LastName`,`BirthDate`,`DeathDate`,`ssn`,`Occupation`,`PhoneNumber`,`Ext`,`PhoneNumber2`,`Ext2`,`Cell`,`FormInfoID`,`UserID`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,Year(CURDATE()));";
+            var queryInsert = "INSERT INTO " + table + " (`FirstName`,`LastName`,`BirthDate`,`DeathDate`,`ssn`,`Occupation`,`PhoneNumber`,`Ext`,`PhoneNumber2`,`Ext2`,`Cell`,`FormInfoID`,`UserID`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 

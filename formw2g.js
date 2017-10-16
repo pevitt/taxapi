@@ -8,6 +8,46 @@ module.exports = function(server, db_config){
   var connection; 
   var table = 'tx_form_w2g';
 
+  server.get('/w2g/has/:userId/:Year', (req, res, next) => {
+
+    if(req.params.userId && isInteger(req.params.userId) ){
+
+      var query = "SELECT * FROM " + table + " where UserId = ? AND Year = ?";
+
+      conectionDB();
+      var _sqlparams = [];
+
+          _sqlparams.push(req.params.userId);
+          _sqlparams.push(req.params.Year);
+
+      connection.query(query , _sqlparams, function (err, result, fields) {
+        
+        if (err){
+          res.send(500, {message: err});
+          connection.end();
+          return next(false);
+        }
+        
+        if(result != undefined && result[0] != undefined){
+          res.json({success:true , hasdata: true , data: result});
+          connection.end();
+          return next();
+        }else{
+          //missin parameter
+          res.json({success:true , hasdata: false});
+          connection.end();
+          return next();
+        }
+
+      });
+
+    }else{
+      res.send(200, {success: false, message: "Param must be a number"});
+      return next(false);  
+    }
+    return next();
+  });
+
   server.get('/w2g/has/:userId', (req, res, next) => {
 
     if(req.params.userId && isInteger(req.params.userId) ){
@@ -107,10 +147,11 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.LocalityName);
           _sqlparams.push(req.body.FormInfoId);
           _sqlparams.push(req.params.userId);
+          _sqlparams.push(req.body.Year);
           
           //if record doesn't exist we create it
           //inserting new rpersonal profile
-          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ein`, `Name`, `NameCont`, `Street`, `City`, `State`, `Zip`, `PhoneNumber`, `FirstNameW`, `LastNameW`, `StreetW`, `CityW`, `StateW`, `ZipW`, `AlteredW2`, `CorrectedW2`, `LotteryW`, `ElectronicW`, `CostTicket`, `GrossWin`, `DateWon`, `TypeWager`, `FedTax`, `TransactionW`, `Race`, `WinningsI`, `Cashier`, `Window`, `FirstID`, `SecondID`, `ST`, `PayerStateId`, `StateWinnings`, `StateTax`, `LocalWin`, `LocalWH`, `LocalityName`, `FormInfoId`, `UserID`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,Year(CURDATE()));";
+          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ein`, `Name`, `NameCont`, `Street`, `City`, `State`, `Zip`, `PhoneNumber`, `FirstNameW`, `LastNameW`, `StreetW`, `CityW`, `StateW`, `ZipW`, `AlteredW2`, `CorrectedW2`, `LotteryW`, `ElectronicW`, `CostTicket`, `GrossWin`, `DateWon`, `TypeWager`, `FedTax`, `TransactionW`, `Race`, `WinningsI`, `Cashier`, `Window`, `FirstID`, `SecondID`, `ST`, `PayerStateId`, `StateWinnings`, `StateTax`, `LocalWin`, `LocalWH`, `LocalityName`, `FormInfoId`, `UserID`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
           conectionDB();
 
