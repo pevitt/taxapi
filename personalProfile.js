@@ -93,6 +93,7 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.MaritalStatus);
           _sqlparams.push(req.body.MarriedStatus);
           _sqlparams.push(req.body.Spouse);
+          _sqlparams.push(req.body.inCareOf);
           _sqlparams.push(req.params.userId);
 
           console.log("insert personal profile: ",_sqlparams);
@@ -101,7 +102,7 @@ module.exports = function(server, db_config){
           if(result != undefined && result[0] != undefined){
 
             //if record does exist we update it
-            var queryInsert = "UPDATE " + table + " SET `FirstName` = ?,`Minitial` = ?,`LastName` = ?,`JrSr` = ?,`BirthDate` = ?,`Ssn` = ?,`Occupation` = ?,`Address` = ?,`Apt` = ?,`City` = ?,`State` = ?,`Zip` = ?,`PhoneNumber1` = ?,`Ext1` = ?,`PhoneType1` = ?,`PhoneNumber2` = ?,`Ext2` = ?,`PhoneType2` = ?,`StateResident` = ?,`LivedAnother2015` = ?,`PreviusState` = ?,`DateResidentNY` = ?,`Tax` = ?,`Legally` = ?,`MaritalStatus` = ?,`MarriedStatus` = ?, `Spouse` = ?  WHERE UserID =  ?;";
+            var queryInsert = "UPDATE " + table + " SET `FirstName` = ?,`Minitial` = ?,`LastName` = ?,`JrSr` = ?,`BirthDate` = ?,`Ssn` = ?,`Occupation` = ?,`Address` = ?,`Apt` = ?,`City` = ?,`State` = ?,`Zip` = ?,`PhoneNumber1` = ?,`Ext1` = ?,`PhoneType1` = ?,`PhoneNumber2` = ?,`Ext2` = ?,`PhoneType2` = ?,`StateResident` = ?,`LivedAnother2015` = ?,`PreviusState` = ?,`DateResidentNY` = ?,`Tax` = ?,`Legally` = ?,`MaritalStatus` = ?,`MarriedStatus` = ?, `Spouse` = ?, `inCareOf` = ?  WHERE UserID =  ?;";
 
             conectionDB();
 
@@ -123,7 +124,7 @@ module.exports = function(server, db_config){
           }else{
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`FirstName`,`Minitial`,`LastName`,`JrSr`,`BirthDate`,`Ssn`,`Occupation`,`Address`,`Apt`,`City`,`State`,`Zip`,`PhoneNumber1`,`Ext1`,`PhoneType1`,`PhoneNumber2`,`Ext2`,`PhoneType2`,`StateResident`,`LivedAnother2015`,`PreviusState`,`DateResidentNY`,`Tax`,`Legally`,`MaritalStatus`,`MarriedStatus`,`Spouse`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`FirstName`,`Minitial`,`LastName`,`JrSr`,`BirthDate`,`Ssn`,`Occupation`,`Address`,`Apt`,`City`,`State`,`Zip`,`PhoneNumber1`,`Ext1`,`PhoneType1`,`PhoneNumber2`,`Ext2`,`PhoneType2`,`StateResident`,`LivedAnother2015`,`PreviusState`,`DateResidentNY`,`Tax`,`Legally`,`MaritalStatus`,`MarriedStatus`,`Spouse`, `inCareOf`,`UserID`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -158,36 +159,7 @@ module.exports = function(server, db_config){
           console.log("req.body.BirthDate != '' ",req.body.BirthDate != "" );
           console.log("req.body.hasOwnProperty('Ssn') ",req.body.hasOwnProperty('Ssn') );
           console.log("req.body.Ssn != '' ",req.body.Ssn != "" );
-          // console.log("req.body.hasOwnProperty('Occupation') ",req.body.hasOwnProperty('Occupation') );
-          // console.log("req.body.Occupation != '' ",req.body.Occupation != "" );
-          // console.log("req.body.hasOwnProperty('Address') ",req.body.hasOwnProperty('Address') );
-          // console.log("req.body.Address != '' ",req.body.Address != "" );
-          // console.log("req.body.hasOwnProperty('Apt') ",req.body.hasOwnProperty('Apt') );
-          // console.log("req.body.Apt != '' ",req.body.Apt != "" );
-          // console.log("req.body.hasOwnProperty('City') ",req.body.hasOwnProperty('City') );
-          // console.log("req.body.City != '' ",req.body.City != "" );
-          // console.log("req.body.hasOwnProperty('State') ",req.body.hasOwnProperty('State') );
-          // console.log("req.body.State != '' ",req.body.State != "" );
-          // console.log("req.body.hasOwnProperty('Zip') ",req.body.hasOwnProperty('Zip') );
-          // console.log("req.body.Zip != '' ",req.body.Zip != "" );
-          // console.log("req.body.hasOwnProperty('PhoneType1') ",req.body.hasOwnProperty('PhoneType1') );
-          // console.log("req.body.PhoneType1 != '' ",req.body.PhoneType1 != "" );
-          // console.log("req.body.hasOwnProperty('PhoneNumber1') ",req.body.hasOwnProperty('PhoneNumber1') );
-          // console.log("req.body.PhoneNumber1 != '' ",req.body.PhoneNumber1 != "" );
-          // console.log("req.body.hasOwnProperty('Ext1') ",req.body.hasOwnProperty('Ext1') );
-          // console.log("req.body.Ext1 != '' ",req.body.Ext1 != "" );
-          // console.log("req.body.hasOwnProperty('StateResident') ",req.body.hasOwnProperty('StateResident') );
-          // console.log("req.body.StateResident != '' ",req.body.StateResident != "" );
-          // console.log("req.body.hasOwnProperty('LivedAnother2015') ",req.body.hasOwnProperty('LivedAnother2015') );
-          // console.log("req.body.LivedAnother2015 != '' ",req.body.LivedAnother2015 != "" );
-          // console.log("req.body.hasOwnProperty('Tax') ",req.body.hasOwnProperty('Tax') );
-          // console.log("req.body.Tax != '' ",req.body.Tax != "" );
-          // console.log("req.body.hasOwnProperty('Legally') ",req.body.hasOwnProperty('Legally') );
-          // console.log("req.body.Legally != '' ",req.body.Legally != "" );
-          // console.log("req.body.hasOwnProperty('MaritalStatus') ",req.body.hasOwnProperty('MaritalStatus') );
-          // console.log("req.body.MaritalStatus != '' ",req.body.MaritalStatus != "" );
-          // console.log("req.body.hasOwnProperty('Spouse') ",req.body.hasOwnProperty('Spouse') );
-          // console.log("req.body.Spouse != '' ",req.body.Spouse != "");
+      
 
           console.log(req.body);
 
@@ -234,9 +206,11 @@ module.exports = function(server, db_config){
       _sqlparams.push(req.body.MaritalStatus);
       _sqlparams.push(req.body.MarriedStatus);
       _sqlparams.push(req.body.Spouse);
+      _sqlparams.push(req.body.inCareOf);
+
       _sqlparams.push(req.params.personalProfileId);
    
-      var queryUpdate = "UPDATE " + table + " SET `FirstName` = ?,`Minitial` = ?,`LastName` = ?,`JrSr` = ?,`BirthDate` = ?,`Ssn` = ?,`Occupation` = ?,`Address` = ?,`Apt` = ?,`City` = ?,`State` = ?,`Zip` = ?,`PhoneNumber1` = ?,`Ext1` = ?,`PhoneType1` = ?,`PhoneNumber2` = ?,`Ext2` = ?,`PhoneType2` = ?,`StateResident` = ?,`LivedAnother2015` = ?,`PreviusState` = ?,`DateResidentNY` = ?,`Tax` = ?,`Legally` = ?,`MaritalStatus` = ?,`MarriedStatus` = ?, `Spouse` = ?  WHERE Id =  ?;";
+      var queryUpdate = "UPDATE " + table + " SET `FirstName` = ?,`Minitial` = ?,`LastName` = ?,`JrSr` = ?,`BirthDate` = ?,`Ssn` = ?,`Occupation` = ?,`Address` = ?,`Apt` = ?,`City` = ?,`State` = ?,`Zip` = ?,`PhoneNumber1` = ?,`Ext1` = ?,`PhoneType1` = ?,`PhoneNumber2` = ?,`Ext2` = ?,`PhoneType2` = ?,`StateResident` = ?,`LivedAnother2015` = ?,`PreviusState` = ?,`DateResidentNY` = ?,`Tax` = ?,`Legally` = ?,`MaritalStatus` = ?,`MarriedStatus` = ?, `Spouse` = ?  , `inCareOf` = ? WHERE Id =  ?;";
 
       conectionDB();
 
