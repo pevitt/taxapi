@@ -6,34 +6,32 @@ var formFunctions = require('./formsFunctions.js');
 module.exports = function(server, db_config){
 
   var connection; 
-  var table = 'tx_form_schb';
+  var table = 'tx_form_1099m';
 
-  server.get('/form_schb/has/:userId/:Year', (req, res, next) => {
+  server.get('/form_1099m/has/:userId/:Year', (req, res, next) => {
     conectionDB();
     return formFunctions.getByUserNYear(req, res, next, table, connection);
     
   });
 
-  server.get('/form_schb/has/:userId', (req, res, next) => {
+  server.get('/form_1099m/has/:userId', (req, res, next) => {
     conectionDB();
     return formFunctions.getByUser(req, res, next, table, connection);
     
   });
 
-  server.post('/form_schb/:userId', (req, res, next) => {
+  server.post('/form_1099m/:userId', (req, res, next) => {
 
     if(req.params.userId && isInteger(req.params.userId) ){
       if( req.body != undefined &&
-          req.body.hasOwnProperty('tsj') && req.body.tsj != "" &&  
-          req.body.hasOwnProperty('Seller') && req.body.Seller != "" && 
-          req.body.hasOwnProperty('TaxIdNumber') && req.body.TaxIdNumber != "" && 
-          req.body.hasOwnProperty('ssn') && req.body.ssn != "" &&
-          req.body.hasOwnProperty('Name') && req.body.Name != "" &&
+          req.body.hasOwnProperty('ts') && req.body.ts != "" &&
+          req.body.hasOwnProperty('ein') && req.body.ein != "" &&
+          req.body.hasOwnProperty('Name') && req.body.Name != "" &&  
           req.body.hasOwnProperty('Street') && req.body.Street != "" &&
           req.body.hasOwnProperty('City') && req.body.City != "" &&
           req.body.hasOwnProperty('ZipCode') && req.body.ZipCode != "" && 
-          req.body.hasOwnProperty('State') && req.body.State != "" && 
-          req.body.hasOwnProperty('AccountNumber') && req.body.AccountNumber != "")
+          req.body.hasOwnProperty('State') && req.body.State != "" 
+          )
       {
 
         
@@ -42,10 +40,9 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.FormInfoId);
           _sqlparams.push(req.params.userId);
           _sqlparams.push(req.body.Year);
-
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`tsj`, `Seller`, `TaxIdNumber`, `ssn`, `Name`, `Street`, `City`, `State`, `ZipCode`, `AccountNumber`, `Interest`, `EarlyDraw`, `UsInterest`, `FederalTaxW`, `Investment`, `ForeignTax`, `ForeignCountry`, `TaxExemp`, `PrivateActivity`, `MarketDiscount`, `BondPremiun`, `BondPremiunE`, `TaxExempCreditNumber`, `ST1`, `StateId1`, `StateTaxWH1`, `ST2`, `StateId2`, `StateTaxWH2`, `FormInfoId`,`UserId`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " ( `ts`, `f`, `fort`, `MultiForm`, `ein`, `Name`, `NameContinued`, `Street`, `City`, `State`, `ZipCode`, `FirstName1`, `LastName1`, `Street1`, `City1`, `State1`, `ZipCode1`, `Rents`, `OtherIncome`, `Description`, `Report8615`, `FederalTax`, `FishingBoat`, `MedicalHealt`, `NoEmployComp`, `SubstitutePay`, `PayerMade`, `CropInsurance`, `ForeignTax`, `ForeignCountry`, `ExcessGolden`, `GrossAttomey`, `TaxablePro`, `Section409ad`, `Section409ai`, `StateTaxW1`, `ST1`, `StateTaxW11`, `StateIncome1`, `LocalIncome1`, `LocalTax1`, `Locality1`, `StateTaxW2`, `ST2`, `StateTaxW22`, `StateIncome2`, `LocalIncome2`, `LocalTax2`, `Locality2`, `foreingState`, `foreingZipCode`, `foreingPostalCode`, `FormInfoId`,`UserId`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -75,28 +72,17 @@ module.exports = function(server, db_config){
           //req.body.hasOwnProperty('Seller') && req.body.Seller != "" && 
           
         if(req.body == undefined){
-          fields += "tsj, Seller, TaxIdNumber, ssn, Name, Street, City, State,ZipCode, AccountNumber";
+          fields += "ts, ein, Name, Street, City, ZipCode, State";
          
         }else{
-          if(!(req.body.hasOwnProperty('tsj') && req.body.tsj != ""))
-            fields += "bbt";
+          if(!(req.body.hasOwnProperty('ts') && req.body.ts != ""))
+            fields += "ts";
           
-          if(!(req.body.hasOwnProperty('Seller') && req.body.Seller != "")){
+          
+          if(!(req.body.hasOwnProperty('ein') && req.body.ein != "")){
             if(fields != "")
               fields += ", "
-            fields += "Seller";
-          }
-
-          if(!(req.body.hasOwnProperty('TaxIdNumber') && req.body.TaxIdNumber != "" )){
-            if(fields != "")
-              fields += ", "
-            fields += "TaxIdNumber";
-          }
-
-          if(!(req.body.hasOwnProperty('ssn') && req.body.ssn != "")){
-            if(fields != "")
-              fields += ", "
-            fields += "ssn";
+            fields += "ein";
           }
 
           if(!(req.body.hasOwnProperty('Name') && req.body.Name != "")){
@@ -123,17 +109,12 @@ module.exports = function(server, db_config){
             fields += "ZipCode";
           }
 
-          if(!(req.body.hasOwnProperty('AccountNumber') && req.body.AccountNumber != "")){
-            if(fields != "")
-              fields += ", "
-            fields += "AccountNumber";
-          }
-
           if(!(req.body.hasOwnProperty('State') && req.body.State != "")){
             if(fields != "")
               fields += ", "
             fields += "State";
           }
+
           
         }
 
@@ -148,14 +129,14 @@ module.exports = function(server, db_config){
     return next();
   });
   
-  server.put('/form_schb/:SchbID', (req, res, next) => {
-    if(req.params.SchbID && isInteger(req.params.SchbID) ){
+  server.put('/form_1099m/:form1099mID', (req, res, next) => {
+    if(req.params.form1099mID && isInteger(req.params.form1099mID) ){
 
       var _sqlparams = loadData(req.body);
          
-      _sqlparams.push(req.params.SchbID);
-   
-      var queryUpdate = "UPDATE " + table + " SET `tsj` = ?, `Seller` = ?, `TaxIdNumber` = ?, `ssn` = ?, `Name` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `AccountNumber` = ?, `Interest` = ?, `EarlyDraw` = ?, `UsInterest` = ?, `FederalTaxW` = ?, `Investment` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `TaxExemp` = ?, `PrivateActivity` = ?, `MarketDiscount` = ?, `BondPremiun` = ?, `BondPremiunE` = ?, `TaxExempCreditNumber` = ?, `ST1` = ?, `StateId1` = ?, `StateTaxWH1` = ?, `ST2` = ?, `StateId2` = ?, `StateTaxWH2` = ? WHERE `Id` = ?;";
+      _sqlparams.push(req.params.form1099mID);
+
+      var queryUpdate = "UPDATE " + table + " SET `ts` = ?, `f` = ?, `fort` = ?, `MultiForm` = ?, `ein` = ?, `Name` = ?, `NameContinued` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `FirstName1` = ?, `LastName1` = ?, `Street1` = ?, `City1` = ?, `State1` = ?, `ZipCode1` = ?, `Rents` = ?, `OtherIncome` = ?, `Description` = ?, `Report8615` = ?, `FederalTax` = ?, `FishingBoat` = ?, `MedicalHealt` = ?, `NoEmployComp` = ?, `SubstitutePay` = ?, `PayerMade` = ?, `CropInsurance` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `ExcessGolden` = ?, `GrossAttomey` = ?, `TaxablePro` = ?, `Section409ad` = ?, `Section409ai` = ?, `StateTaxW1` = ?, `ST1` = ?, `StateTaxW11` = ?, `StateIncome1` = ?, `LocalIncome1` = ?, `LocalTax1` = ?, `Locality1` = ?, `StateTaxW2` = ?, `ST2` = ?, `StateTaxW22` = ?, `StateIncome2` = ?, `LocalIncome2` = ?, `LocalTax2` = ?, `Locality2` = ?, `foreingState` = ?, `foreingZipCode` = ?, `foreingPostalCode` = ?, WHERE `Id` = ?;";
 
       conectionDB();
 
@@ -175,13 +156,13 @@ module.exports = function(server, db_config){
       });            
 
     } else{
-      res.send(200, {success: false, message: "The Schb  id is required"});
+      res.send(200, {success: false, message: "The form1099m  id is required"});
       return next(false);  
     }
     return next();
   });
 
-  server.del('/form_schb/:formId/:userId', (req, res, next) => {
+  server.del('/form_1099m/:formId/:userId', (req, res, next) => {
     conectionDB();
     return formFunctions.delRecord(req, res, next, table, connection);  
   });
@@ -189,7 +170,7 @@ module.exports = function(server, db_config){
   function loadData(body){
 
     var _sqlparams = [];
-
+/*
     _sqlparams.push(body.tsj ? body.tsj : "");
     _sqlparams.push(body.Seller ? 1 : 0);
     _sqlparams.push(body.TaxIdNumber ? body.TaxIdNumber : "");
@@ -221,7 +202,7 @@ module.exports = function(server, db_config){
     _sqlparams.push(body.StateId2 ? body.StateId2 : "");
     _sqlparams.push(body.StateTaxWH2 ? body.StateTaxWH2 : 0);
      
-
+*/
     return _sqlparams;
   }
 

@@ -8,19 +8,19 @@ module.exports = function(server, db_config){
   var connection; 
   var table = 'tx_form_schc';
 
-  server.get('/schc/has/:userId/:Year', (req, res, next) => {
+  server.get('/form_schc/has/:userId/:Year', (req, res, next) => {
     conectionDB();
     return formFunctions.getByUserNYear(req, res, next, table, connection);
     
   });
 
-  server.get('/schc/has/:userId', (req, res, next) => {
+  server.get('/form_schc/has/:userId', (req, res, next) => {
     conectionDB();
     return formFunctions.getByUser(req, res, next, table, connection);
     
   });
 
-  server.post('/schc/:userId', (req, res, next) => {
+  server.post('/form_schc/:userId', (req, res, next) => {
 
 
     if(req.params.userId && isInteger(req.params.userId) ){
@@ -139,7 +139,7 @@ module.exports = function(server, db_config){
     return next();
   });
   
-  server.put('/schc/:SchCID', (req, res, next) => {
+  server.put('/form_schc/:SchCID', (req, res, next) => {
     if(req.params.SchCID && isInteger(req.params.SchCID) ){
 
       var _sqlparams = loadData(req.body);
