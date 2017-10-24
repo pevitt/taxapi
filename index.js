@@ -83,9 +83,12 @@ require('./form8863.js')(server, db_config);
 require('./formscha.js')(server, db_config);
 require('./formschl.js')(server, db_config);
 require('./schc.js')(server, db_config);
+require('./schb.js')(server, db_config);
+
 
 server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);
 });
+
 
 

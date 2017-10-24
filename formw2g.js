@@ -255,56 +255,9 @@ module.exports = function(server, db_config){
     return next();
   });
 
-  server.del('/w2g/:w2gId/:userId', (req, res, next) => {
-    if(req.params.w2gId && isInteger(req.params.w2gId) && req.params.userId && isInteger(req.params.userId)){
-      
-      var queryInsert = "SELECT * FROM " + table + " WHERE UserID = ? AND Id = ?";
-
-      conectionDB();
-
-      connection.query(queryInsert , [req.params.userId, req.params.w2gId], function (err, result, fields) {
-
-        connection.end();
-
-        if (err){
-          res.send(500, {message: err});
-          return next(false);
-        }
-
-        if(result != null && result[0] != null){
-          //Delete register
-
-          var queryInsert = "Delete FROM " + table + " WHERE UserID = ? AND Id = ?";
-
-          conectionDB();
-
-          connection.query(queryInsert , [req.params.userId, req.params.w2gId], function (err, result, fields) {
-
-            connection.end();
-
-            if (err){
-              res.send(500, {message: err});
-              return next(false);
-            }
-
-            //message unemployment form doesn't match the user
-            res.send(200, {success: false, message:"W2G Form deleted successfully"});
-            return next(false);
-          });
-
-        }else{
-          //message unemployment form doesn't match the user
-          res.send(200, {success: false, message:"W2G Form doens't match with the user"});
-          return next(false);
-        }
-
-        
-      });
-    } else{
-      res.send(200, {success: false, message: "The W2G id is required"});
-      return next(false);  
-    }
-    return next();
+  server.del('/w2g/:formId/:userId', (req, res, next) => {
+    conectionDB();
+    return formFunctions.delRecord(req, res, next, table, connection);  
   });
 
   function conectionDB(){

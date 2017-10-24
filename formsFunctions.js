@@ -92,37 +92,51 @@ function getByUser(req, res, next, table, connection) {
 }
 
 function delRecord(req, res, next, table, connection) {
-  if(req.params.Id && isInteger(req.params.Id) ){
-
-    var query = "Delete FROM " + table + " where Id = ?";
-
-
-    connection.query(query , [req.params.Id], function (err, result, fields) {
+  if(req.params.formId && isInteger(req.params.formId) && req.params.userId && isInteger(req.params.userId)){
       
-      if (err){
-        res.send(500, {message: err});
-        connection.end();
-        return next(false);
-      }
-      
-      if(result != undefined && result[0] != undefined){
-        res.json({success:true , hasdata: true , data: result});
-        connection.end();
-        return next();
-      }else{
-        //missin parameter
-        res.json({success:true , hasdata: false});
-        connection.end();
-        return next();
-      }
+      var queryInsert = "SELECT * FROM " + table + " WHERE UserID = ? AND Id = ?";      
 
-    });
+      connection.query(queryInsert , [req.params.userId, req.params.formId], function (err, result, fields) { 
 
-  }else{
-    res.send(200, {success: false, message: "Param must be a number"});
-    return next(false);  
-  }
-  return next();
+        if (err){
+          res.send(500, {message: err});
+          return next(false);
+        }
+
+        if(result != null && result[0] != null){
+          //Delete register
+
+          var queryInsert = "Delete FROM " + table + " WHERE UserID = ? AND Id = ?";
+
+          connection.query(queryInsert , [req.params.userId, req.params.formId], function (err, result, fields) {
+
+            connection.end();
+
+            if (err){
+              res.send(500, {message: err});
+              return next(false);
+            }
+
+            //message unemployment form doesn't match the user
+            res.send(200, {success: false, message:" Form deleted successfully"});
+            return next(false);
+          });
+
+        }else{
+          connection.end();
+          //message unemployment form doesn't match the user
+          res.send(200, {success: false, message:" Form doens't match with the user"});
+          return next(false);
+        }
+
+        
+      });
+    } else{
+      connection.end();
+      res.send(200, {success: false, message: "The Form id is required"});
+      return next(false);  
+    }
+    return next();
 }
 
 
