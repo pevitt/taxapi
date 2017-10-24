@@ -97,7 +97,7 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.params.userId);
           _sqlparams.push(req.body.FormInfoId);
           _sqlparams.push(req.body.Year);
-          _sqlparams.push(req.params.tsj);
+          _sqlparams.push(req.body.tsj);
           _sqlparams.push(req.body.fort);
           _sqlparams.push(req.body.MultiForm);
           _sqlparams.push(req.body.NotIssued ? 1 : 0);
@@ -184,7 +184,7 @@ module.exports = function(server, db_config){
 
       var _sqlparams = [];
 
-          _sqlparams.push(req.params.tsj);
+          _sqlparams.push(req.body.tsj);
           _sqlparams.push(req.body.fort);
           _sqlparams.push(req.body.MultiForm);
           _sqlparams.push(req.body.NotIssued ? 1 : 0);
