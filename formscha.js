@@ -6,9 +6,9 @@ var formFunctions = require('./formsFunctions.js');
 module.exports = function(server, db_config){
 
   var connection; 
-  var table = 'tx_form_childcare';
+  var table = 'tx_form_scha';
 
-  server.get('/form_childcare/has/:userId/:Year', (req, res, next) => {
+  server.get('/form_scha/has/:userId/:Year', (req, res, next) => {
 
     if(req.params.userId && isInteger(req.params.userId) ){
 
@@ -48,7 +48,7 @@ module.exports = function(server, db_config){
     return next();
   });
 
-  server.get('/form_childcare/has/:userId', (req, res, next) => {
+  server.get('/form_scha/has/:userId', (req, res, next) => {
 
     if(req.params.userId && isInteger(req.params.userId) ){
 
@@ -84,7 +84,7 @@ module.exports = function(server, db_config){
     return next();
   });
 
-  server.post('/form_childcare/:userId', (req, res, next) => {
+  server.post('/form_scha/:userId', (req, res, next) => {
     if(req.params.userId && isInteger(req.params.userId) ){
       if( req.body.hasOwnProperty('City') && req.body.City != "" &&  
           req.body.hasOwnProperty('State') && req.body.State != "" && 
@@ -97,7 +97,7 @@ module.exports = function(server, db_config){
 
           _sqlparams.push(req.body.ssn);
           _sqlparams.push(req.body.ein ? 1 : 0);
-          _sqlparams.push(req.body.AmoundPaid ? req.body.AmoundPaid : 0);
+          _sqlparams.push(req.body.AmoundPaid ? null : 0);
           _sqlparams.push(req.body.CareProvider);
           _sqlparams.push(req.body.Street);
           _sqlparams.push(req.body.City);
@@ -161,14 +161,14 @@ module.exports = function(server, db_config){
     return next();
   });
   
-  server.put('/form_childcare/:ChildCareID', (req, res, next) => {
+  server.put('/form_scha/:ChildCareID', (req, res, next) => {
     if(req.params.ChildCareID && isInteger(req.params.ChildCareID) ){
 
       var _sqlparams = [];
 
            _sqlparams.push(req.body.ssn);
           _sqlparams.push(req.body.ein ? 1 : 0);
-          _sqlparams.push(req.body.AmoundPaid ? req.body.AmoundPaid : 0);
+          _sqlparams.push(req.body.AmoundPaid);
           _sqlparams.push(req.body.CareProvider);
           _sqlparams.push(req.body.Street);
           _sqlparams.push(req.body.City);
