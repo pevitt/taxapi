@@ -136,7 +136,7 @@ module.exports = function(server, db_config){
          
       _sqlparams.push(req.params.form1099mID);
 
-      var queryUpdate = "UPDATE " + table + " SET `ts` = ?, `f` = ?, `fort` = ?, `MultiForm` = ?, `ein` = ?, `Name` = ?, `NameContinued` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `FirstName1` = ?, `LastName1` = ?, `Street1` = ?, `City1` = ?, `State1` = ?, `ZipCode1` = ?, `Rents` = ?, `OtherIncome` = ?, `Description` = ?, `Report8615` = ?, `FederalTax` = ?, `FishingBoat` = ?, `MedicalHealt` = ?, `NoEmployComp` = ?, `SubstitutePay` = ?, `PayerMade` = ?, `CropInsurance` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `ExcessGolden` = ?, `GrossAttomey` = ?, `TaxablePro` = ?, `Section409ad` = ?, `Section409ai` = ?, `StateTaxW1` = ?, `ST1` = ?, `StateTaxW11` = ?, `StateIncome1` = ?, `LocalIncome1` = ?, `LocalTax1` = ?, `Locality1` = ?, `StateTaxW2` = ?, `ST2` = ?, `StateTaxW22` = ?, `StateIncome2` = ?, `LocalIncome2` = ?, `LocalTax2` = ?, `Locality2` = ?, `foreingState` = ?, `foreingZipCode` = ?, `foreingPostalCode` = ?, WHERE `Id` = ?;";
+      var queryUpdate = "UPDATE " + table + " SET `ts` = ?, `f` = ?, `fort` = ?, `MultiForm` = ?, `ein` = ?, `Name` = ?, `NameContinued` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `FirstName1` = ?, `LastName1` = ?, `Street1` = ?, `City1` = ?, `State1` = ?, `ZipCode1` = ?, `Rents` = ?, `OtherIncome` = ?, `Description` = ?, `Report8615` = ?, `FederalTax` = ?, `FishingBoat` = ?, `MedicalHealt` = ?, `NoEmployComp` = ?, `SubstitutePay` = ?, `PayerMade` = ?, `CropInsurance` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `ExcessGolden` = ?, `GrossAttomey` = ?, `TaxablePro` = ?, `Section409ad` = ?, `Section409ai` = ?, `StateTaxW1` = ?, `ST1` = ?, `StateTaxW11` = ?, `StateIncome1` = ?, `LocalIncome1` = ?, `LocalTax1` = ?, `Locality1` = ?, `StateTaxW2` = ?, `ST2` = ?, `StateTaxW22` = ?, `StateIncome2` = ?, `LocalIncome2` = ?, `LocalTax2` = ?, `Locality2` = ?, `foreingState` = ?, `foreingZipCode` = ?, `foreingPostalCode` = ? WHERE `Id` = ?;";
 
       conectionDB();
 
@@ -169,40 +169,62 @@ module.exports = function(server, db_config){
 
   function loadData(body){
 
-    var _sqlparams = [];
-/*
-    _sqlparams.push(body.tsj ? body.tsj : "");
-    _sqlparams.push(body.Seller ? 1 : 0);
-    _sqlparams.push(body.TaxIdNumber ? body.TaxIdNumber : "");
-    _sqlparams.push(body.ssn ? 1 : 0);
-    _sqlparams.push(body.Name ? body.Name : "");
-    _sqlparams.push(body.Street ? body.Street : "");
-    _sqlparams.push(body.City ? body.City : "");
-    _sqlparams.push(body.State ? body.State : "");
-    _sqlparams.push(body.ZipCode ? body.ZipCode : "");
-    _sqlparams.push(body.AccountNumber ? body.AccountNumber : "");
+    var _sqlparams = [];  
 
-    _sqlparams.push(body.Interest ? body.Interest : 0);
-    _sqlparams.push(body.EarlyDraw ? body.EarlyDraw : 0);
-    _sqlparams.push(body.UsInterest ? body.UsInterest : 0);
-    _sqlparams.push(body.FederalTaxW ? body.FederalTaxW : 0);
-    _sqlparams.push(body.Investment ? body.Investment : 0);
-    _sqlparams.push(body.ForeignTax ? body.ForeignTax : 0);
-    _sqlparams.push(body.ForeignCountry ? body.ForeignCountry : "");
-    _sqlparams.push(body.TaxExemp ? body.TaxExemp : 0);
-    _sqlparams.push(body.PrivateActivity ? body.PrivateActivity : 0);
-    _sqlparams.push(body.MarketDiscount ? body.MarketDiscount : 0);
-    _sqlparams.push(body.BondPremiun ? body.BondPremiun : 0);
-    _sqlparams.push(body.BondPremiunE ? body.BondPremiunE : 0);
-    _sqlparams.push(body.TaxExempCreditNumber ? body.TaxExempCreditNumber : "");
-    _sqlparams.push(body.ST1 ? body.ST1 : "");
-    _sqlparams.push(body.StateId1 ? body.StateId1 : "");
-    _sqlparams.push(body.StateTaxWH1 ? body.StateTaxWH1 : 0);
-    _sqlparams.push(body.ST2 ? body.ST2 : "");
-    _sqlparams.push(body.StateId2 ? body.StateId2 : "");
-    _sqlparams.push(body.StateTaxWH2 ? body.StateTaxWH2 : 0);
+     _sqlparams.push(body.ts ? body.ts : "");
+     _sqlparams.push(body.f ? body.f : "");
+     _sqlparams.push(body.fort ? body.fort : "");
+     _sqlparams.push(body.MultiForm ? body.MultiForm : "");
+     _sqlparams.push(body.ein ? body.ein : "");
+     _sqlparams.push(body.Name ? body.Name : "");
+     _sqlparams.push(body.NameContinued ? body.NameContinued : "");
+     _sqlparams.push(body.Street ? body.Street : "");
+     _sqlparams.push(body.City ? body.City : "");
+     _sqlparams.push(body.State ? body.State : "");
+     _sqlparams.push(body.ZipCode ? body.ZipCode : "");
+     _sqlparams.push(body.FirstName1 ? body.FirstName1 : "");
+     _sqlparams.push(body.LastName1 ? body.LastName1 : "");
+     _sqlparams.push(body.Street1 ? body.Street1 : "");
+     _sqlparams.push(body.City1 ? body.City1 : "");
+     _sqlparams.push(body.State1 ? body.State1 : "");
+     _sqlparams.push(body.ZipCode1 ? body.ZipCode1 : "");
+     _sqlparams.push(body.Rents ? body.Rents : 0);
+     _sqlparams.push(body.OtherIncome ? body.OtherIncome : 0);
+     _sqlparams.push(body.Description ? body.Description : "");
+     _sqlparams.push(body.Report8615 ? 1 : 0 );
+     _sqlparams.push(body.FederalTax ? body.FederalTax : 0);
+     _sqlparams.push(body.FishingBoat ? body.FishingBoat : 0);
+     _sqlparams.push(body.MedicalHealt ? body.MedicalHealt : 0);
+     _sqlparams.push(body.NoEmployComp ? body.NoEmployComp : 0);
+     _sqlparams.push(body.SubstitutePay ? body.SubstitutePay : 0);
+     _sqlparams.push(body.PayerMade ? 1 : 0 );
+     _sqlparams.push(body.CropInsurance ? body.CropInsurance : 0);
+     _sqlparams.push(body.ForeignTax ? body.ForeignTax : 0);
+     _sqlparams.push(body.ForeignCountry ? body.ForeignCountry : 0);
+     _sqlparams.push(body.ExcessGolden ? body.ExcessGolden : 0);
+     _sqlparams.push(body.GrossAttomey ? body.GrossAttomey : 0);
+     _sqlparams.push(body.TaxablePro ? body.TaxablePro : 0);
+     _sqlparams.push(body.Section409ad ? body.Section409ad : 0);
+     _sqlparams.push(body.Section409ai ? body.Section409ai : 0);
+     _sqlparams.push(body.StateTaxW1 ? body.StateTaxW1 : 0);
+     _sqlparams.push(body.ST1 ? body.ST1 : "");
+     _sqlparams.push(body.StateTaxW11 ? body.StateTaxW11 : 0);
+     _sqlparams.push(body.StateIncome1 ? body.StateIncome1 : 0);
+     _sqlparams.push(body.LocalIncome1 ? body.LocalIncome1 : 0);
+     _sqlparams.push(body.LocalTax1 ? body.LocalTax1 : 0);
+     _sqlparams.push(body.Locality1 ? body.Locality1 : "");
+     _sqlparams.push(body.StateTaxW2 ? body.StateTaxW2 : 0);
+     _sqlparams.push(body.ST2 ? body.ST2 : "");
+     _sqlparams.push(body.StateTaxW22 ? body.StateTaxW22 : 0);
+     _sqlparams.push(body.StateIncome2 ? body.StateIncome2 : 0);
+     _sqlparams.push(body.LocalIncome2 ? body.LocalIncome2 : 0);
+     _sqlparams.push(body.LocalTax2 ? body.LocalTax2 : 0);
+     _sqlparams.push(body.Locality2 ? body.Locality2 : "");
+     _sqlparams.push(body.foreingState ? body.foreingState : "");
+     _sqlparams.push(body.foreingZipCode ? body.foreingZipCode : "");
+     _sqlparams.push(body.foreingPostalCode ? body.foreingPostalCode : "");
      
-*/
+
     return _sqlparams;
   }
 
