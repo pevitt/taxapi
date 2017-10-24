@@ -128,13 +128,14 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.Address2);
           _sqlparams.push(req.body.Address3);
           _sqlparams.push(req.body.Description);
+          _sqlparams.push(req.body.FormName);
            
 
           console.log("insert child care: ",_sqlparams);
 
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`UserId`, `FormInfoId`, `Year`, `tsj`, `fort`, `MultiForm`, `NotIssued`, `Fed`, `Name`, `Address`, `City`, `State`, `Zip`, `AName`, `AName2`, `AAddress`, `ACity`, `AState`, `Azip`, `RealTax`, `PrimaryRes`, `MortgageInterest`, `OutMortgage`, `MortgageOrig`, `RefundOver`, `MortgageInsurance`, `Qualifed`, `PointsPaid`, `SameAddress`, `AddressProperty`, `Address1`, `Address2`, `Address3`, `Description`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`UserId`, `FormInfoId`, `Year`, `tsj`, `fort`, `MultiForm`, `NotIssued`, `Fed`, `Name`, `Address`, `City`, `State`, `Zip`, `AName`, `AName2`, `AAddress`, `ACity`, `AState`, `Azip`, `RealTax`, `PrimaryRes`, `MortgageInterest`, `OutMortgage`, `MortgageOrig`, `RefundOver`, `MortgageInsurance`, `Qualifed`, `PointsPaid`, `SameAddress`, `AddressProperty`, `Address1`, `Address2`, `Address3`, `Description`, `FormName`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -214,10 +215,11 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.Address2);
           _sqlparams.push(req.body.Address3);
           _sqlparams.push(req.body.Description);
+          _sqlparams.push(req.body.FormName);
          
           _sqlparams.push(req.params.SchlId);
    
-      var queryUpdate = "UPDATE " + table + " SET `tsj`= ?,`fort`= ?,`MultiForm`= ?,`NotIssued`= ?,`Fed`= ?,`Name`= ?,`Address`= ?,`City`= ?,`State`= ?,`Zip`= ?,`AName`= ?,`AName2`= ?,`AAddress`= ?,`ACity`= ?,`AState`= ?,`Azip`= ?,`RealTax`= ?,`PrimaryRes`= ?,`MortgageInterest`= ?,`OutMortgage`= ?,`MortgageOrig`= ?,`RefundOver`= ?,`MortgageInsurance`= ?,`Qualifed`= ?,`PointsPaid`= ?,`SameAddress`= ?,`AddressProperty`= ?,`Address1`= ?,`Address2`= ?,`Address3`= ?,`Description`= ?  WHERE Id =  ?;";
+      var queryUpdate = "UPDATE " + table + " SET `tsj`= ?,`fort`= ?,`MultiForm`= ?,`NotIssued`= ?,`Fed`= ?,`Name`= ?,`Address`= ?,`City`= ?,`State`= ?,`Zip`= ?,`AName`= ?,`AName2`= ?,`AAddress`= ?,`ACity`= ?,`AState`= ?,`Azip`= ?,`RealTax`= ?,`PrimaryRes`= ?,`MortgageInterest`= ?,`OutMortgage`= ?,`MortgageOrig`= ?,`RefundOver`= ?,`MortgageInsurance`= ?,`Qualifed`= ?,`PointsPaid`= ?,`SameAddress`= ?,`AddressProperty`= ?,`Address1`= ?,`Address2`= ?,`Address3`= ?,`Description`= ?, `FormName`= ?   WHERE Id =  ?;";
 
       conectionDB();
 
