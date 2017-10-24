@@ -86,32 +86,52 @@ module.exports = function(server, db_config){
 
   server.post('/form_scha/:userId', (req, res, next) => {
     if(req.params.userId && isInteger(req.params.userId) ){
-      if( req.body.hasOwnProperty('City') && req.body.City != "" &&  
-          req.body.hasOwnProperty('State') && req.body.State != "" && 
-          req.body.hasOwnProperty('CareProvider') && req.body.CareProvider != "" && 
-          req.body.hasOwnProperty('ssn') && req.body.ssn != "")
+      if( req.body.hasOwnProperty('Total') && req.body.Total != "")
       {
 
         
           var _sqlparams = [];
 
-          _sqlparams.push(req.body.ssn);
-          _sqlparams.push(req.body.ein ? 1 : 0);
-          _sqlparams.push(req.body.AmoundPaid ? null : 0);
-          _sqlparams.push(req.body.CareProvider);
-          _sqlparams.push(req.body.Street);
-          _sqlparams.push(req.body.City);
-          _sqlparams.push(req.body.State);
-          _sqlparams.push(req.body.Zip);
-          _sqlparams.push(req.body.FormInfoId);
           _sqlparams.push(req.params.userId);
+          _sqlparams.push(req.body.FormInfoId);
+          _sqlparams.push(req.body.Dc1);
+          _sqlparams.push(req.body.Dc2);
+          _sqlparams.push(req.body.Dc3);
+          _sqlparams.push(req.body.Dc4);
+          _sqlparams.push(req.body.Dc5);
+          _sqlparams.push(req.body.DcAmount1 ? req.body.DcAmount1 : 0);
+          _sqlparams.push(req.body.DcAmount2 ? req.body.DcAmount2 : 0);
+          _sqlparams.push(req.body.DcAmount3 ? req.body.DcAmount3 : 0);
+          _sqlparams.push(req.body.DcAmount4 ? req.body.DcAmount4 : 0);
+          _sqlparams.push(req.body.DcAmount5 ? req.body.DcAmount5 : 0);
+          _sqlparams.push(req.body.Gift1);
+          _sqlparams.push(req.body.Gift2);
+          _sqlparams.push(req.body.GiftAmount1 ? req.body.GiftAmount1 : 0);
+          _sqlparams.push(req.body.GiftAmount2 ? req.body.GiftAmount2 : 0);
+          _sqlparams.push(req.body.Job1);
+          _sqlparams.push(req.body.Job2);
+          _sqlparams.push(req.body.Job3);
+          _sqlparams.push(req.body.Job4);
+          _sqlparams.push(req.body.Job5);
+          _sqlparams.push(req.body.JobAmount1 ? req.body.JobAmount1 : 0);
+          _sqlparams.push(req.body.JobAmount2 ? req.body.JobAmount2 : 0);
+          _sqlparams.push(req.body.JobAmount3 ? req.body.JobAmount3 : 0);
+          _sqlparams.push(req.body.JobAmount4 ? req.body.JobAmount4 : 0);
+          _sqlparams.push(req.body.JobAmount5 ? req.body.JobAmount5 : 0);
+          _sqlparams.push(req.body.Other1);
+          _sqlparams.push(req.body.Other2);
+          _sqlparams.push(req.body.Other3);
+          _sqlparams.push(req.body.OtherAmount1 ? req.body.OtherAmount1 : 0);
+          _sqlparams.push(req.body.OtherAmount2 ? req.body.OtherAmount2 : 0);
+          _sqlparams.push(req.body.OtherAmount3 ? req.body.OtherAmount3 : 0);
+          _sqlparams.push(req.body.Total ? req.body.Total : 0);
            _sqlparams.push(req.body.Year);
 
           console.log("insert child care: ",_sqlparams);
 
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`ssn`,`ein`,`AmoundPaid`,`CareProvider`,`Street`,`City`,`State`,`Zip`,`FormInfoId`,`UserID`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`UserId`, `FormInfoId`, `Dc1`, `Dc2`, `Dc3`, `Dc4`, `Dc5`, `DcAmount1`, `DcAmount2`, `DcAmount3`, `DcAmount4`, `DcAmount5`, `Gift1`, `Gift2`, `GiftAmount1`, `GiftAmount2`, `Job1`, `Job2`, `Job3`, `Job4`, `Job5`, `JobAmount1`, `JobAmount2`, `JobAmount3`, `JobAmount4`, `JobAmount5`, `Other1`, `Other2`, `Other3`, `OtherAmount1`, `OtherAmount2`, `OtherAmount3`, `Total`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -136,21 +156,13 @@ module.exports = function(server, db_config){
         
      }else{    
           
-          console.log("req.body.hasOwnProperty('ssn') ",req.body.hasOwnProperty('ssn') );
-          console.log("req.body.ssn != '' ",req.body.ssn != "" );
+          console.log("req.body.hasOwnProperty('Total') ",req.body.hasOwnProperty('Total') );
           
-          console.log("req.body.hasOwnProperty('City') ",req.body.hasOwnProperty('City') );
-          console.log("req.body.City != '' ",req.body.City != "" );
-          
-          console.log("req.body.hasOwnProperty('CareProvider') ",req.body.hasOwnProperty('CareProvider') );
-          console.log("req.body.CareProvider != '' ",req.body.CareProvider != "" );
-          console.log("req.body.hasOwnProperty('State') ",req.body.hasOwnProperty('State') );
-          console.log("req.body.State != '' ",req.body.State != "" );
           
 
           console.log(req.body);
 
-        res.send(200, {success: false, message: "One of this fields has no value: State,City,CareProvider,ssn"});
+        res.send(200, {success: false, message: "One of this fields has no value: Total"});
         return next(false);
      }
 
@@ -161,23 +173,46 @@ module.exports = function(server, db_config){
     return next();
   });
   
-  server.put('/form_scha/:ChildCareID', (req, res, next) => {
-    if(req.params.ChildCareID && isInteger(req.params.ChildCareID) ){
+  server.put('/form_scha/:SchaId', (req, res, next) => {
+    if(req.params.SchaId && isInteger(req.params.SchaId) ){
 
       var _sqlparams = [];
 
-           _sqlparams.push(req.body.ssn);
-          _sqlparams.push(req.body.ein ? 1 : 0);
-          _sqlparams.push(req.body.AmoundPaid);
-          _sqlparams.push(req.body.CareProvider);
-          _sqlparams.push(req.body.Street);
-          _sqlparams.push(req.body.City);
-          _sqlparams.push(req.body.State);
-          _sqlparams.push(req.body.Zip);
+          _sqlparams.push(req.body.Dc1);
+          _sqlparams.push(req.body.Dc2);
+          _sqlparams.push(req.body.Dc3);
+          _sqlparams.push(req.body.Dc4);
+          _sqlparams.push(req.body.Dc5);
+          _sqlparams.push(req.body.DcAmount1 ? req.body.DcAmount1 : 0);
+          _sqlparams.push(req.body.DcAmount2 ? req.body.DcAmount2 : 0);
+          _sqlparams.push(req.body.DcAmount3 ? req.body.DcAmount3 : 0);
+          _sqlparams.push(req.body.DcAmount4 ? req.body.DcAmount4 : 0);
+          _sqlparams.push(req.body.DcAmount5 ? req.body.DcAmount5 : 0);
+          _sqlparams.push(req.body.Gift1);
+          _sqlparams.push(req.body.Gift2);
+          _sqlparams.push(req.body.GiftAmount1 ? req.body.GiftAmount1 : 0);
+          _sqlparams.push(req.body.GiftAmount2 ? req.body.GiftAmount2 : 0);
+          _sqlparams.push(req.body.Job1);
+          _sqlparams.push(req.body.Job2);
+          _sqlparams.push(req.body.Job3);
+          _sqlparams.push(req.body.Job4);
+          _sqlparams.push(req.body.Job5);
+          _sqlparams.push(req.body.JobAmount1 ? req.body.JobAmount1 : 0);
+          _sqlparams.push(req.body.JobAmount2 ? req.body.JobAmount2 : 0);
+          _sqlparams.push(req.body.JobAmount3 ? req.body.JobAmount3 : 0);
+          _sqlparams.push(req.body.JobAmount4 ? req.body.JobAmount4 : 0);
+          _sqlparams.push(req.body.JobAmount5 ? req.body.JobAmount5 : 0);
+          _sqlparams.push(req.body.Other1);
+          _sqlparams.push(req.body.Other2);
+          _sqlparams.push(req.body.Other3);
+          _sqlparams.push(req.body.OtherAmount1 ? req.body.OtherAmount1 : 0);
+          _sqlparams.push(req.body.OtherAmount2 ? req.body.OtherAmount2 : 0);
+          _sqlparams.push(req.body.OtherAmount3 ? req.body.OtherAmount3 : 0);
+          _sqlparams.push(req.body.Total ? req.body.Total : 0);
          
-          _sqlparams.push(req.params.ChildCareID);
+          _sqlparams.push(req.params.SchaId);
    
-      var queryUpdate = "UPDATE " + table + " SET `ssn` = ?,`ein` = ?,`AmoundPaid` = ?,`CareProvider` = ?,`Street` = ?,`City` = ?,`State` = ?,`Zip` = ?  WHERE Id =  ?;";
+      var queryUpdate = "UPDATE " + table + " SET `Dc1`= ?,`Dc2`= ?,`Dc3`= ?,`Dc4`= ?,`Dc5`= ?,`DcAmount1`= ?,`DcAmount2`= ?,`DcAmount3`= ?, `DcAmount4`= ?,`DcAmount5`= ?,`Gift1`= ?,`Gift2`= ?,`GiftAmount1`= ?,`GiftAmount2`= ?,`Job1`= ?,`Job2`= ?,`Job3`= ?,`Job4`= ?,`Job5`= ?,`JobAmount1`= ?,`JobAmount2`= ?,`JobAmount3`= ?,`JobAmount4`= ?,`JobAmount5`= ?,`Other1`= ?,`Other2`= ?,`Other3`= ?,`OtherAmount1`= ?,`OtherAmount2`= ?,`OtherAmount3`= ?,`Total`= ?  WHERE Id =  ?;";
 
       conectionDB();
 
@@ -197,7 +232,7 @@ module.exports = function(server, db_config){
       });            
 
     } else{
-      res.send(200, {success: false, message: "The ChildCare id is required"});
+      res.send(200, {success: false, message: "The Form id is required"});
       return next(false);  
     }
     return next();
