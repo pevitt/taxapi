@@ -147,7 +147,7 @@ module.exports = function(server, db_config){
          
       _sqlparams.push(req.params.SchbID);
    
-      var queryUpdate = "UPDATE " + table + " SET `tsj` = ?, `Seller` = ?, `TaxIdNumber` = ?, `ssn` = ?, `Name` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `AccountNumber` = ?, `Interest` = ?, `EarlyDraw` = ?, `UsInterest` = ?, `FederalTaxW` = ?, `Investment` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `TaxExemp` = ?, `PrivateActivity` = ?, `MarketDiscount` = ?, `BondPremiun` = ?, `BondPremiunE` = ?, `TaxExempCreditNumber` = ?, `ST1` = ?, `StateId1` = ?, `StateTaxWH1` = ?, `ST2` = ?, `StateId2` = ?, `StateTaxWH2` = ?, WHERE `Id` = ?;";
+      var queryUpdate = "UPDATE " + table + " SET `tsj` = ?, `Seller` = ?, `TaxIdNumber` = ?, `ssn` = ?, `Name` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `AccountNumber` = ?, `Interest` = ?, `EarlyDraw` = ?, `UsInterest` = ?, `FederalTaxW` = ?, `Investment` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `TaxExemp` = ?, `PrivateActivity` = ?, `MarketDiscount` = ?, `BondPremiun` = ?, `BondPremiunE` = ?, `TaxExempCreditNumber` = ?, `ST1` = ?, `StateId1` = ?, `StateTaxWH1` = ?, `ST2` = ?, `StateId2` = ?, `StateTaxWH2` = ? WHERE `Id` = ?;";
 
       conectionDB();
 
@@ -181,7 +181,7 @@ module.exports = function(server, db_config){
   function loadData(body){
 
     var _sqlparams = [];
-    
+
     _sqlparams.push(body.tsj ? body.tsj : "");
     _sqlparams.push(body.Seller ? 1 : 0);
     _sqlparams.push(body.TaxIdNumber ? body.TaxIdNumber : "");
@@ -211,7 +211,7 @@ module.exports = function(server, db_config){
     _sqlparams.push(body.StateTaxWH1 ? body.StateTaxWH1 : 0);
     _sqlparams.push(body.ST2 ? body.ST2 : "");
     _sqlparams.push(body.StateId2 ? body.StateId2 : "");
-    _sqlparams.push(body.StateTaxWH2 ?body.StateTaxWH2 : 0);
+    _sqlparams.push(body.StateTaxWH2 ? body.StateTaxWH2 : 0);
      
 
     return _sqlparams;
