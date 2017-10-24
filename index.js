@@ -42,7 +42,7 @@ server.use(restify.plugins.bodyParser());
 
 server.pre(cors());
 
-server.use(function (req, res, next){
+/*server.use(function (req, res, next){
     if(req.url == '/user/create/' ||  req.url == '/user/login/'){
         return next();
     }
@@ -69,7 +69,7 @@ server.use(function (req, res, next){
       });
       return next(false);
     }
-});
+});*/
 
 require('./user')(server, db_config);
 require('./personalProfile')(server, db_config);
@@ -82,6 +82,7 @@ require('./formw2g.js')(server, db_config);
 require('./form8863.js')(server, db_config);
 require('./formscha.js')(server, db_config);
 require('./formschl.js')(server, db_config);
+require('./schc.js')(server, db_config);
 
 server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);
