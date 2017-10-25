@@ -38,14 +38,14 @@ module.exports = function(server, db_config){
 
         
           var _sqlparams = loadData(req.body);
-
+          _sqlparams.push(req.body.FormName);
           _sqlparams.push(req.body.FormInfoId);
           _sqlparams.push(req.params.userId);
           _sqlparams.push(req.body.Year);
 
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`tsj`, `Seller`, `TaxIdNumber`, `ssn`, `Name`, `Street`, `City`, `State`, `ZipCode`, `AccountNumber`, `Interest`, `EarlyDraw`, `UsInterest`, `FederalTaxW`, `Investment`, `ForeignTax`, `ForeignCountry`, `TaxExemp`, `PrivateActivity`, `MarketDiscount`, `BondPremiun`, `BondPremiunE`, `TaxExempCreditNumber`, `ST1`, `StateId1`, `StateTaxWH1`, `ST2`, `StateId2`, `StateTaxWH2`, `FormInfoId`,`UserId`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`tsj`, `Seller`, `TaxIdNumber`, `ssn`, `Name`, `Street`, `City`, `State`, `ZipCode`, `AccountNumber`, `Interest`, `EarlyDraw`, `UsInterest`, `FederalTaxW`, `Investment`, `ForeignTax`, `ForeignCountry`, `TaxExemp`, `PrivateActivity`, `MarketDiscount`, `BondPremiun`, `BondPremiunE`, `TaxExempCreditNumber`, `ST1`, `StateId1`, `StateTaxWH1`, `ST2`, `StateId2`, `StateTaxWH2`,`FormName`, `FormInfoId`,`UserId`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -152,10 +152,10 @@ module.exports = function(server, db_config){
     if(req.params.SchbID && isInteger(req.params.SchbID) ){
 
       var _sqlparams = loadData(req.body);
-         
+       _sqlparams.push(req.body.FormName);
       _sqlparams.push(req.params.SchbID);
    
-      var queryUpdate = "UPDATE " + table + " SET `tsj` = ?, `Seller` = ?, `TaxIdNumber` = ?, `ssn` = ?, `Name` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `AccountNumber` = ?, `Interest` = ?, `EarlyDraw` = ?, `UsInterest` = ?, `FederalTaxW` = ?, `Investment` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `TaxExemp` = ?, `PrivateActivity` = ?, `MarketDiscount` = ?, `BondPremiun` = ?, `BondPremiunE` = ?, `TaxExempCreditNumber` = ?, `ST1` = ?, `StateId1` = ?, `StateTaxWH1` = ?, `ST2` = ?, `StateId2` = ?, `StateTaxWH2` = ? WHERE `Id` = ?;";
+      var queryUpdate = "UPDATE " + table + " SET `tsj` = ?, `Seller` = ?, `TaxIdNumber` = ?, `ssn` = ?, `Name` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `AccountNumber` = ?, `Interest` = ?, `EarlyDraw` = ?, `UsInterest` = ?, `FederalTaxW` = ?, `Investment` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `TaxExemp` = ?, `PrivateActivity` = ?, `MarketDiscount` = ?, `BondPremiun` = ?, `BondPremiunE` = ?, `TaxExempCreditNumber` = ?, `ST1` = ?, `StateId1` = ?, `StateTaxWH1` = ?, `ST2` = ?, `StateId2` = ?, `StateTaxWH2` = ?, `FormName` = ? WHERE `Id` = ?;";
 
       conectionDB();
 
