@@ -86,7 +86,7 @@ require('./schc.js')(server, db_config);
 require('./schb.js')(server, db_config);
 require('./form1099m.js')(server, db_config);
 require('./form1099r.js')(server, db_config);
-
+require('./form1095a.js')(server, db_config);
 
 server.listen(port, function() {
   console.log('%s listening at %s', server.name, server.url);
