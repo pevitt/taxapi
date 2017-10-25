@@ -42,7 +42,7 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.Year);
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " ( `ts`, `f`, `fort`, `MultiForm`, `ein`, `Name`, `NameContinued`, `Street`, `City`, `State`, `ZipCode`, `FirstName1`, `LastName1`, `Street1`, `City1`, `State1`, `ZipCode1`, `Rents`, `OtherIncome`, `Description`, `Report8615`, `FederalTax`, `FishingBoat`, `MedicalHealt`, `NoEmployComp`, `SubstitutePay`, `PayerMade`, `CropInsurance`, `ForeignTax`, `ForeignCountry`, `ExcessGolden`, `GrossAttomey`, `TaxablePro`, `Section409ad`, `Section409ai`, `StateTaxW1`, `ST1`, `StateTaxW11`, `StateIncome1`, `LocalIncome1`, `LocalTax1`, `Locality1`, `StateTaxW2`, `ST2`, `StateTaxW22`, `StateIncome2`, `LocalIncome2`, `LocalTax2`, `Locality2`, `foreingState`, `foreingZipCode`, `foreingPostalCode`, `FormInfoId`,`UserId`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`ts`, `ein`, `Name`, `NameContinued`, `Street`, `City`, `State`, `ZipCode`, `FirstName1`, `LastName1`, `Street1`, `City1`, `State1`, `ZipCode1`, `GrossDis`, `TaxAmount`, `CapitalGain`, `EmployContri`, `FederalTax`, `Unrealized`, `DistCode1`, `DistCode2`, `IsaSep`, `TaxPayer`, `Other`, `OtherPer`, `TaxPayerPerTotal`, `TotalEmployee`, `AmountIrr`, `FirstYear`, `Fatca`, `AccountNumber`, `Statetax1`, `Statetax2`, `LocalTax1`, `LocalTax2`, `State11`, `PayerState11`, `State2`, `PayerState2`, `Locality1`, `Locality2`, `StateDistribution1`, `StateDistribution2`, `LocalDistribution1`, `LocalDistribution2`, `FormName`,`FormInfoId`,`UserId`,`Year`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             conectionDB();
 
@@ -68,9 +68,7 @@ module.exports = function(server, db_config){
      }else{    
           
         var fields = "";
-          //req.body.hasOwnProperty('tsj') && req.body.tsj != "" &&  
-          //req.body.hasOwnProperty('Seller') && req.body.Seller != "" && 
-          
+         
         if(req.body == undefined){
           fields += "ts, ein, Name, Street, City, ZipCode, State";
          
@@ -84,6 +82,37 @@ module.exports = function(server, db_config){
               fields += ", "
             fields += "ein";
           }
+
+          if(!(req.body.hasOwnProperty('Name') && req.body.Name != "")){
+            if(fields != "")
+              fields += ", "
+            fields += "Name";
+          }
+
+          if(!(req.body.hasOwnProperty('Street') && req.body.Street != "")){
+            if(fields != "")
+              fields += ", "
+            fields += "Street";
+          }
+
+          if(!(req.body.hasOwnProperty('City') && req.body.City != "")){
+            if(fields != "")
+              fields += ", "
+            fields += "City";
+          }
+
+          if(!(req.body.hasOwnProperty('ZipCode') && req.body.ZipCode != "" )){
+            if(fields != "")
+              fields += ", "
+            fields += "ZipCode";
+          }
+
+          if(!(req.body.hasOwnProperty('State') && req.body.State != "")){
+            if(fields != "")
+              fields += ", "
+            fields += "State";
+          }
+
           
         }
 
@@ -105,7 +134,7 @@ module.exports = function(server, db_config){
          
       _sqlparams.push(req.params.form1099rID);
 
-      var queryUpdate = "UPDATE " + table + " SET `ts` = ?, `f` = ?, `fort` = ?, `MultiForm` = ?, `ein` = ?, `Name` = ?, `NameContinued` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `FirstName1` = ?, `LastName1` = ?, `Street1` = ?, `City1` = ?, `State1` = ?, `ZipCode1` = ?, `Rents` = ?, `OtherIncome` = ?, `Description` = ?, `Report8615` = ?, `FederalTax` = ?, `FishingBoat` = ?, `MedicalHealt` = ?, `NoEmployComp` = ?, `SubstitutePay` = ?, `PayerMade` = ?, `CropInsurance` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `ExcessGolden` = ?, `GrossAttomey` = ?, `TaxablePro` = ?, `Section409ad` = ?, `Section409ai` = ?, `StateTaxW1` = ?, `ST1` = ?, `StateTaxW11` = ?, `StateIncome1` = ?, `LocalIncome1` = ?, `LocalTax1` = ?, `Locality1` = ?, `StateTaxW2` = ?, `ST2` = ?, `StateTaxW22` = ?, `StateIncome2` = ?, `LocalIncome2` = ?, `LocalTax2` = ?, `Locality2` = ?, `foreingState` = ?, `foreingZipCode` = ?, `foreingPostalCode` = ? WHERE `Id` = ?;";
+      var queryUpdate = "UPDATE " + table + " SET `ts` = ?, `ein` = ?, `Name` = ?, `NameContinued` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `FirstName1` = ?, `LastName1` = ?, `Street1` = ?, `City1` = ?, `State1` = ?, `ZipCode1` = ?, `GrossDis` = ?, `TaxAmount` = ?, `CapitalGain` = ?, `EmployContri` = ?, `FederalTax` = ?, `Unrealized` = ?, `DistCode1` = ?, `DistCode2` = ?, `IsaSep` = ?, `TaxPayer` = ?, `Other` = ?, `OtherPer` = ?, `TaxPayerPerTotal` = ?, `TotalEmployee` = ?, `AmountIrr` = ?, `FirstYear` = ?, `Fatca` = ?, `AccountNumber` = ?, `Statetax1` = ?, `Statetax2` = ?, `LocalTax1` = ?, `LocalTax2` = ?, `State11` = ?, `PayerState11` = ?, `State2` = ?, `PayerState2` = ?, `Locality1` = ?, `Locality2` = ?, `StateDistribution1` = ?, `StateDistribution2` = ?, `LocalDistribution1` = ?, `LocalDistribution2` = ?, `FormName` = ? WHERE `Id` = ?";
 
       conectionDB();
 
@@ -140,8 +169,53 @@ module.exports = function(server, db_config){
 
     var _sqlparams = [];  
 
-     _sqlparams.push(body.ts ? body.ts : "");
-     
+    _sqlparams.push(body.ts ? body.ts : "");
+    _sqlparams.push(body.ein ? body.ein : "");
+    _sqlparams.push(body.Name ? body.Name : "");
+    _sqlparams.push(body.NameContinued ? body.NameContinued : "");
+    _sqlparams.push(body.Street ? body.Street : "");
+    _sqlparams.push(body.City ? body.City : "");
+    _sqlparams.push(body.State ? body.State : "");
+    _sqlparams.push(body.ZipCode ? body.ZipCode : "");
+    _sqlparams.push(body.FirstName1 ? body.FirstName1 : "");
+    _sqlparams.push(body.LastName1 ? body.LastName1 : "");
+    _sqlparams.push(body.Street1 ? body.Street1 : "");
+    _sqlparams.push(body.City1 ? body.City1 : "");
+    _sqlparams.push(body.State1 ? body.State1 : "");
+    _sqlparams.push(body.ZipCode1 ? body.ZipCode1 : "");
+    _sqlparams.push(body.GrossDis  ? body.GrossDis : 0);
+    _sqlparams.push(body.TaxAmount  ? body.TaxAmount : 0);
+    _sqlparams.push(body.CapitalGain  ? body.CapitalGain : 0);
+    _sqlparams.push(body.EmployContri  ? body.EmployContri : 0);
+    _sqlparams.push(body.FederalTax  ? body.FederalTax : 0);
+    _sqlparams.push(body.Unrealized  ? body.Unrealized : 0);
+    _sqlparams.push(body.DistCode1 ? body.DistCode1 : "");
+    _sqlparams.push(body.DistCode2 ? body.DistCode2 : "");
+    _sqlparams.push(body.IsaSep ? 1 : 0 );
+    _sqlparams.push(body.TaxPayer  ? body.TaxPayer : 0);
+    _sqlparams.push(body.Other  ? body.Other : 0);
+    _sqlparams.push(body.OtherPer  ? body.OtherPer : 0);
+    _sqlparams.push(body.TaxPayerPerTotal  ? body.TaxPayerPerTotal : 0);
+    _sqlparams.push(body.TotalEmployee  ? body.TotalEmployee : 0);
+    _sqlparams.push(body.AmountIrr  ? body.AmountIrr : 0);
+    _sqlparams.push(body.FirstYear  ? body.FirstYear : 0);
+    _sqlparams.push(body.Fatca ? 1 : 0 );
+    _sqlparams.push(body.AccountNumber ? body.AccountNumber : "");
+    _sqlparams.push(body.Statetax1  ? body.Statetax1 : 0);
+    _sqlparams.push(body.Statetax2  ? body.Statetax2 : 0);
+    _sqlparams.push(body.LocalTax1  ? body.LocalTax1 : 0);
+    _sqlparams.push(body.LocalTax2  ? body.LocalTax2 : 0);
+    _sqlparams.push(body.State11 ? body.State11 : "");
+    _sqlparams.push(body.PayerState11  ? body.PayerState11 : 0);
+    _sqlparams.push(body.State2 ? body.State2 : "");
+    _sqlparams.push(body.PayerState2  ? body.PayerState2 : 0);
+    _sqlparams.push(body.Locality1 ? body.Locality1 : "");
+    _sqlparams.push(body.Locality2 ? body.Locality2 : "");
+    _sqlparams.push(body.StateDistribution1  ? body.StateDistribution1 : 0);
+    _sqlparams.push(body.StateDistribution2  ? body.StateDistribution2 : 0);
+    _sqlparams.push(body.LocalDistribution1  ? body.LocalDistribution1 : 0);
+    _sqlparams.push(body.LocalDistribution2  ? body.LocalDistribution2 : 0);
+    _sqlparams.push(body.FormName ? body.FormName : "");
      
 
     return _sqlparams;
