@@ -27,7 +27,6 @@ module.exports = function(server, db_config){
           req.body.hasOwnProperty('tsj') && req.body.tsj != "" &&  
           req.body.hasOwnProperty('Seller') && req.body.Seller != "" && 
           req.body.hasOwnProperty('TaxIdNumber') && req.body.TaxIdNumber != "" && 
-          req.body.hasOwnProperty('ssn') && req.body.ssn != "" &&
           req.body.hasOwnProperty('Name') && req.body.Name != "" &&
           req.body.hasOwnProperty('Street') && req.body.Street != "" &&
           req.body.hasOwnProperty('City') && req.body.City != "" &&
@@ -75,7 +74,7 @@ module.exports = function(server, db_config){
           //req.body.hasOwnProperty('Seller') && req.body.Seller != "" && 
           
         if(req.body == undefined){
-          fields += "tsj, Seller, TaxIdNumber, ssn, Name, Street, City, State,ZipCode, AccountNumber";
+          fields += "tsj, Seller, TaxIdNumber, Name, Street, City, State,ZipCode, AccountNumber";
          
         }else{
           if(!(req.body.hasOwnProperty('tsj') && req.body.tsj != ""))
@@ -91,12 +90,6 @@ module.exports = function(server, db_config){
             if(fields != "")
               fields += ", "
             fields += "TaxIdNumber";
-          }
-
-          if(!(req.body.hasOwnProperty('ssn') && req.body.ssn != "")){
-            if(fields != "")
-              fields += ", "
-            fields += "ssn";
           }
 
           if(!(req.body.hasOwnProperty('Name') && req.body.Name != "")){
