@@ -145,13 +145,16 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.LocalWin);
           _sqlparams.push(req.body.LocalWH);
           _sqlparams.push(req.body.LocalityName);
+          _sqlparams.push(req.body.winnerTaxIdentification);
+          
+
           _sqlparams.push(req.body.FormInfoId);
           _sqlparams.push(req.params.userId);
           _sqlparams.push(req.body.Year);
           
           //if record doesn't exist we create it
           //inserting new rpersonal profile
-          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ein`, `Name`, `NameCont`, `Street`, `City`, `State`, `Zip`, `PhoneNumber`, `FirstNameW`, `LastNameW`, `StreetW`, `CityW`, `StateW`, `ZipW`, `AlteredW2`, `CorrectedW2`, `LotteryW`, `ElectronicW`, `CostTicket`, `GrossWin`, `DateWon`, `TypeWager`, `FedTax`, `TransactionW`, `Race`, `WinningsI`, `Cashier`, `Window`, `FirstID`, `SecondID`, `ST`, `PayerStateId`, `StateWinnings`, `StateTax`, `LocalWin`, `LocalWH`, `LocalityName`, `FormInfoId`, `UserID`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+          var queryInsert = "INSERT INTO " + table + " (`Ts`, `FormName`, `Ein`, `Name`, `NameCont`, `Street`, `City`, `State`, `Zip`, `PhoneNumber`, `FirstNameW`, `LastNameW`, `StreetW`, `CityW`, `StateW`, `ZipW`, `AlteredW2`, `CorrectedW2`, `LotteryW`, `ElectronicW`, `CostTicket`, `GrossWin`, `DateWon`, `TypeWager`, `FedTax`, `TransactionW`, `Race`, `WinningsI`, `Cashier`, `Window`, `FirstID`, `SecondID`, `ST`, `PayerStateId`, `StateWinnings`, `StateTax`, `LocalWin`, `LocalWH`, `LocalityName`, `winnerTaxIdentification`, `FormInfoId`, `UserID`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
           conectionDB();
 
@@ -227,9 +230,10 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.LocalWin);
           _sqlparams.push(req.body.LocalWH);
           _sqlparams.push(req.body.LocalityName);
+          _sqlparams.push(req.body.winnerTaxIdentification);
           _sqlparams.push(req.params.w2gId);
    
-      var queryInsert = "UPDATE " + table + " SET `Ts` = ?,`FormName` = ?,`Ein` = ?,`Name` = ?,`NameCont` = ?,`Street` = ?,`City` = ?,`State` = ?,`Zip` = ?, `PhoneNumber` = ?,`FirstNameW` = ?,`LastNameW` = ?,`StreetW` = ?,`CityW` = ?,`StateW` = ?,`ZipW` = ?,`AlteredW2` = ?,`CorrectedW2` = ?,`LotteryW` = ?,`ElectronicW` = ?,`CostTicket` = ?,`GrossWin` = ?,`DateWon` = ?,`TypeWager` = ?,`FedTax` = ?,`TransactionW` = ?,`Race` = ?,`WinningsI` = ?,`Cashier` = ?,`Window` = ?,`FirstID` = ?,`SecondID` = ?,`ST` = ?,`PayerStateId` = ?,`StateWinnings` = ?,`StateTax` = ?,`LocalWin` = ?,`LocalWH` = ?,`LocalityName` = ? WHERE `Id` = ?;";
+      var queryInsert = "UPDATE " + table + " SET `Ts` = ?,`FormName` = ?,`Ein` = ?,`Name` = ?,`NameCont` = ?,`Street` = ?,`City` = ?,`State` = ?,`Zip` = ?, `PhoneNumber` = ?,`FirstNameW` = ?,`LastNameW` = ?,`StreetW` = ?,`CityW` = ?,`StateW` = ?,`ZipW` = ?,`AlteredW2` = ?,`CorrectedW2` = ?,`LotteryW` = ?,`ElectronicW` = ?,`CostTicket` = ?,`GrossWin` = ?,`DateWon` = ?,`TypeWager` = ?,`FedTax` = ?,`TransactionW` = ?,`Race` = ?,`WinningsI` = ?,`Cashier` = ?,`Window` = ?,`FirstID` = ?,`SecondID` = ?,`ST` = ?,`PayerStateId` = ?,`StateWinnings` = ?,`StateTax` = ?,`LocalWin` = ?,`LocalWH` = ?,`LocalityName` = ?, `winnerTaxIdentification` = ? WHERE `Id` = ?;";
 
       conectionDB();
 
