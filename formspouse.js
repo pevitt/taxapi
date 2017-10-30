@@ -76,8 +76,8 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.Ext);
           _sqlparams.push(req.body.PhoneNumber2);
           _sqlparams.push(req.body.Ext2);
-          _sqlparams.push(req.body.cellPhoneType1);
-          _sqlparams.push(req.body.cellPhoneType2);
+          _sqlparams.push(req.body.PhoneType1);
+          _sqlparams.push(req.body.PhoneType2);
           _sqlparams.push(req.body.FormInfoID);
           _sqlparams.push(req.params.userId);
           _sqlparams.push(req.body.Year);
@@ -88,7 +88,7 @@ module.exports = function(server, db_config){
           if(result != undefined && result[0] != undefined){
 
             //if record does exist we update it
-            var queryInsert = "UPDATE " + table + " SET `FirstName` = ?,`LastName` = ?,`BirthDate` = ?,`DeathDate` = ?,`ssn` = ?,`Occupation` = ?,`PhoneNumber` = ?,`Ext` = ?,`PhoneNumber2` = ?,`Ext2` = ?,`cellPhoneType1` = ?, `cellPhoneType2` = ?,`FormInfoID` = ?  WHERE UserID =  ?;";
+            var queryInsert = "UPDATE " + table + " SET `FirstName` = ?,`LastName` = ?,`BirthDate` = ?,`DeathDate` = ?,`ssn` = ?,`Occupation` = ?,`PhoneNumber` = ?,`Ext` = ?,`PhoneNumber2` = ?,`Ext2` = ?,`PhoneType1` = ?, `PhoneType2` = ?,`FormInfoID` = ?  WHERE UserID =  ?;";
 
             conectionDB();
 
@@ -110,7 +110,7 @@ module.exports = function(server, db_config){
           }else{
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`FirstName`,`LastName`,`BirthDate`,`DeathDate`,`ssn`,`Occupation`,`PhoneNumber`,`Ext`,`PhoneNumber2`,`Ext2`,`cellPhoneType1`, `cellPhoneType2` ,`FormInfoID`,`UserID`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`FirstName`,`LastName`,`BirthDate`,`DeathDate`,`ssn`,`Occupation`,`PhoneNumber`,`Ext`,`PhoneNumber2`,`Ext2`,`PhoneType1`, `PhoneType2` ,`FormInfoID`,`UserID`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -175,12 +175,12 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.Ext);
           _sqlparams.push(req.body.PhoneNumber2);
           _sqlparams.push(req.body.Ext2);
-          _sqlparams.push(req.body.cellPhoneType1);
-          _sqlparams.push(req.body.cellPhoneType2);
+          _sqlparams.push(req.body.PhoneType1);
+          _sqlparams.push(req.body.PhoneType2);
          
           _sqlparams.push(req.params.FormSpouseID);
    
-      var queryUpdate = "UPDATE " + table + " SET `FirstName` = ?,`LastName` = ?,`BirthDate` = ?,`DeathDate` = ?,`ssn` = ?,`Occupation` = ?,`PhoneNumber` = ?,`Ext` = ?,`PhoneNumber2` = ?,`Ext2` = ?,`cellPhoneType1` = ?, `cellPhoneType2` = ?  WHERE Id =  ?;";
+      var queryUpdate = "UPDATE " + table + " SET `FirstName` = ?,`LastName` = ?,`BirthDate` = ?,`DeathDate` = ?,`ssn` = ?,`Occupation` = ?,`PhoneNumber` = ?,`Ext` = ?,`PhoneNumber2` = ?,`Ext2` = ?,`PhoneType1` = ?, `PhoneType2` = ?  WHERE Id =  ?;";
 
       conectionDB();
 
