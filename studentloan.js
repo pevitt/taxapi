@@ -228,6 +228,11 @@ module.exports = function(server, db_config){
     return next();
   });
 
+  server.del('/form_studentloan/:formId/:userId', (req, res, next) => {
+    conectionDB();
+    return formFunctions.delRecord(req, res, next, table, connection);  
+  });
+
   function conectionDB(){
     connection = mysql.createConnection(db_config);
     connection.connect(function(err) {              
