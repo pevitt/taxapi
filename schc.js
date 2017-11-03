@@ -45,7 +45,7 @@ module.exports = function(server, db_config){
 
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`bbt`,`bpps`,`EmployeerId`,`BusinessName`,`Street`,`City`,`State`,`ZipCode`,`CashIncome`,`ChecksCredits`,`TotalGross`,`Advertising`,`CarTruck`,`Commissions`,`ContractLabor`,`DepreciationVehicule`,`DepreciationReal`,`DepreciationAdj`,`EmployeeBen`,`Insurance`,`Montgage`,`Other`,`OfficeExpense`,`RentVehicle`,`RentOffice`,`Repair`,`Supplies`,`Taxes`,`Travel`,`Meals`,`Utilities`,`Wages`,`Other2`,`HomeOffice`,`LegalServices`,`TotalExpenses`,`TotalAmount`, `AditionalExpenses`,`FormInfoId`,`UserId`,`Year`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`bbt`,`bpps`,`EmployeerId`,`BusinessName`,`Street`,`City`,`State`,`ZipCode`,`CashIncome`,`ChecksCredits`,`TotalGross`,`Advertising`,`CarTruck`,`Commissions`,`ContractLabor`,`DepreciationVehicule`,`DepreciationReal`,`DepreciationAdj`,`EmployeeBen`,`Insurance`,`Montgage`,`Other`,`OfficeExpense`,`RentVehicle`,`RentOffice`,`Repair`,`Supplies`,`Taxes`,`Travel`,`Meals`,`Utilities`,`Wages`,`Other2`,`HomeOffice`,`LegalServices`,`TotalExpenses`,`TotalAmount`, `AditionalExpenses`,`OthersIncome` ,`FormInfoId`,`UserId`,`Year`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -147,7 +147,7 @@ module.exports = function(server, db_config){
       _sqlparams.push(req.params.SchCID);
 
    
-      var queryUpdate = "UPDATE " + table + " SET `bbt` = ?, `bpps` = ?, `EmployeerId` = ?, `BusinessName` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `CashIncome` = ?, `ChecksCredits` = ?, `TotalGross` = ?, `Advertising` = ?, `CarTruck` = ?, `Commissions` = ?, `ContractLabor` = ?, `DepreciationVehicule` = ?, `DepreciationReal` = ?, `DepreciationAdj` = ?, `EmployeeBen` = ?, `Insurance` = ?, `Montgage` = ?, `Other` = ?, `OfficeExpense` = ?, `RentVehicle` = ?, `RentOffice` = ?, `Repair` = ?, `Supplies` = ?, `Taxes` = ?, `Travel` = ?, `Meals` = ?, `Utilities` = ?, `Wages` = ?, `Other2` = ?, `HomeOffice` = ?, `LegalServices` = ?, `TotalExpenses` = ?, `TotalAmount` = ?, `AditionalExpenses` = ? WHERE  `Id` = ?;";
+      var queryUpdate = "UPDATE " + table + " SET `bbt` = ?, `bpps` = ?, `EmployeerId` = ?, `BusinessName` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `CashIncome` = ?, `ChecksCredits` = ?, `TotalGross` = ?, `Advertising` = ?, `CarTruck` = ?, `Commissions` = ?, `ContractLabor` = ?, `DepreciationVehicule` = ?, `DepreciationReal` = ?, `DepreciationAdj` = ?, `EmployeeBen` = ?, `Insurance` = ?, `Montgage` = ?, `Other` = ?, `OfficeExpense` = ?, `RentVehicle` = ?, `RentOffice` = ?, `Repair` = ?, `Supplies` = ?, `Taxes` = ?, `Travel` = ?, `Meals` = ?, `Utilities` = ?, `Wages` = ?, `Other2` = ?, `HomeOffice` = ?, `LegalServices` = ?, `TotalExpenses` = ?, `TotalAmount` = ?, `AditionalExpenses` = ?, `OthersIncome` = ? WHERE  `Id` = ?;";
 
       conectionDB();
 
@@ -221,6 +221,7 @@ module.exports = function(server, db_config){
      _sqlparams.push(body.TotalAmount ? body.TotalAmount : 0 );
 
      _sqlparams.push(body.AditionalExpenses ? body.AditionalExpenses : '' );
+     _sqlparams.push(body.OthersIncome ? body.OthersIncome : 0 );
      
 
     return _sqlparams;
