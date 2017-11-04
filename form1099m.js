@@ -42,7 +42,7 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.Year);
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " ( `ts`, `f`, `fort`, `MultiForm`, `ein`, `Name`, `NameContinued`, `Street`, `City`, `State`, `ZipCode`, `FirstName1`, `LastName1`, `Street1`, `City1`, `State1`, `ZipCode1`, `Rents`, `OtherIncome`, `Description`, `Report8615`, `FederalTax`, `FishingBoat`, `MedicalHealt`, `NoEmployComp`, `SubstitutePay`, `PayerMade`, `CropInsurance`, `ForeignTax`, `ForeignCountry`, `ExcessGolden`, `GrossAttomey`, `TaxablePro`, `Section409ad`, `Section409ai`, `StateTaxW1`, `ST1`, `StateTaxW11`, `StateIncome1`, `LocalIncome1`, `LocalTax1`, `Locality1`, `StateTaxW2`, `ST2`, `StateTaxW22`, `StateIncome2`, `LocalIncome2`, `LocalTax2`, `Locality2`, `foreingState`, `foreingZipCode`, `foreingPostalCode`, `FormName`, `FormInfoId`,`UserId`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " ( `ts`, `f`, `fort`, `MultiForm`, `ein`, `Name`, `NameContinued`, `Street`, `City`, `State`, `ZipCode`, `FirstName1`, `LastName1`, `Street1`, `City1`, `State1`, `ZipCode1`, `Rents`, `OtherIncome`, `Description`, `Report8615`, `FederalTax`, `FishingBoat`, `MedicalHealt`, `NoEmployComp`, `SubstitutePay`, `PayerMade`, `CropInsurance`, `ForeignTax`, `ForeignCountry`, `ExcessGolden`, `GrossAttomey`, `TaxablePro`, `Section409ad`, `Section409ai`, `StateTaxW1`, `ST1`, `StateTaxW11`, `StateIncome1`, `LocalIncome1`, `LocalTax1`, `Locality1`, `StateTaxW2`, `ST2`, `StateTaxW22`, `StateIncome2`, `LocalIncome2`, `LocalTax2`, `Locality2`, `foreingState`, `foreingZipCode`, `foreingPostalCode`, `Royalties`, `Country`, `FormName`, `FormInfoId`,`UserId`,`Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -136,7 +136,7 @@ module.exports = function(server, db_config){
       _sqlparams.push(req.body.FormName);
       _sqlparams.push(req.params.form1099mID);
 
-      var queryUpdate = "UPDATE " + table + " SET `ts` = ?, `f` = ?, `fort` = ?, `MultiForm` = ?, `ein` = ?, `Name` = ?, `NameContinued` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `FirstName1` = ?, `LastName1` = ?, `Street1` = ?, `City1` = ?, `State1` = ?, `ZipCode1` = ?, `Rents` = ?, `OtherIncome` = ?, `Description` = ?, `Report8615` = ?, `FederalTax` = ?, `FishingBoat` = ?, `MedicalHealt` = ?, `NoEmployComp` = ?, `SubstitutePay` = ?, `PayerMade` = ?, `CropInsurance` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `ExcessGolden` = ?, `GrossAttomey` = ?, `TaxablePro` = ?, `Section409ad` = ?, `Section409ai` = ?, `StateTaxW1` = ?, `ST1` = ?, `StateTaxW11` = ?, `StateIncome1` = ?, `LocalIncome1` = ?, `LocalTax1` = ?, `Locality1` = ?, `StateTaxW2` = ?, `ST2` = ?, `StateTaxW22` = ?, `StateIncome2` = ?, `LocalIncome2` = ?, `LocalTax2` = ?, `Locality2` = ?, `foreingState` = ?, `foreingZipCode` = ?, `foreingPostalCode` = ?, `FormName` = ? WHERE `Id` = ?;";
+      var queryUpdate = "UPDATE " + table + " SET `ts` = ?, `f` = ?, `fort` = ?, `MultiForm` = ?, `ein` = ?, `Name` = ?, `NameContinued` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `FirstName1` = ?, `LastName1` = ?, `Street1` = ?, `City1` = ?, `State1` = ?, `ZipCode1` = ?, `Rents` = ?, `OtherIncome` = ?, `Description` = ?, `Report8615` = ?, `FederalTax` = ?, `FishingBoat` = ?, `MedicalHealt` = ?, `NoEmployComp` = ?, `SubstitutePay` = ?, `PayerMade` = ?, `CropInsurance` = ?, `ForeignTax` = ?, `ForeignCountry` = ?, `ExcessGolden` = ?, `GrossAttomey` = ?, `TaxablePro` = ?, `Section409ad` = ?, `Section409ai` = ?, `StateTaxW1` = ?, `ST1` = ?, `StateTaxW11` = ?, `StateIncome1` = ?, `LocalIncome1` = ?, `LocalTax1` = ?, `Locality1` = ?, `StateTaxW2` = ?, `ST2` = ?, `StateTaxW22` = ?, `StateIncome2` = ?, `LocalIncome2` = ?, `LocalTax2` = ?, `Locality2` = ?, `foreingState` = ?, `foreingZipCode` = ?, `Royalties` = ?, `Country` = ?, `foreingPostalCode` = ?, `FormName` = ? WHERE `Id` = ?;";
 
       conectionDB();
 
@@ -223,6 +223,8 @@ module.exports = function(server, db_config){
      _sqlparams.push(body.foreingState ? body.foreingState : "");
      _sqlparams.push(body.foreingZipCode ? body.foreingZipCode : "");
      _sqlparams.push(body.foreingPostalCode ? body.foreingPostalCode : "");
+     _sqlparams.push(body.Royalties ? body.Royalties : 0);
+     _sqlparams.push(body.Country ? body.Country : "");
      
 
     return _sqlparams;

@@ -126,12 +126,20 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.OtherAmount3 ? req.body.OtherAmount3 : 0);
           _sqlparams.push(req.body.Total ? req.body.Total : 0);
            _sqlparams.push(req.body.Year);
+           _sqlparams.push(body.MedicalExpenses ? body.MedicalExpenses : '' );
+          _sqlparams.push(body.GiftsExpenses ? body.GiftsExpenses : '' );
+          _sqlparams.push(body.JobsExpenses ? body.JobsExpenses : '' );
+          _sqlparams.push(body.OthersExpenses ? body.OthersExpenses : '' );
+          _sqlparams.push(body.medicaltotal ? body.medicaltotal : 0 );
+          _sqlparams.push(body.gifttotal ? body.gifttotal : 0 );
+          _sqlparams.push(body.jobtotal ? body.jobtotal : 0 );
+          _sqlparams.push(body.othertotal ? body.othertotal : 0 );
 
           console.log("insert child care: ",_sqlparams);
 
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`UserId`, `FormInfoId`, `Dc1`, `Dc2`, `Dc3`, `Dc4`, `Dc5`, `DcAmount1`, `DcAmount2`, `DcAmount3`, `DcAmount4`, `DcAmount5`, `Gift1`, `Gift2`, `GiftAmount1`, `GiftAmount2`, `Job1`, `Job2`, `Job3`, `Job4`, `Job5`, `JobAmount1`, `JobAmount2`, `JobAmount3`, `JobAmount4`, `JobAmount5`, `Other1`, `Other2`, `Other3`, `OtherAmount1`, `OtherAmount2`, `OtherAmount3`, `Total`, `Year`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`UserId`, `FormInfoId`, `Dc1`, `Dc2`, `Dc3`, `Dc4`, `Dc5`, `DcAmount1`, `DcAmount2`, `DcAmount3`, `DcAmount4`, `DcAmount5`, `Gift1`, `Gift2`, `GiftAmount1`, `GiftAmount2`, `Job1`, `Job2`, `Job3`, `Job4`, `Job5`, `JobAmount1`, `JobAmount2`, `JobAmount3`, `JobAmount4`, `JobAmount5`, `Other1`, `Other2`, `Other3`, `OtherAmount1`, `OtherAmount2`, `OtherAmount3`, `Total`, `Year`, `MedicalExpenses`, `GiftsExpenses`, `JobsExpenses`, `OthersExpenses`, `medicaltotal`, `gifttotal`, `jobtotal`, `othertotal`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -209,10 +217,18 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.OtherAmount2 ? req.body.OtherAmount2 : 0);
           _sqlparams.push(req.body.OtherAmount3 ? req.body.OtherAmount3 : 0);
           _sqlparams.push(req.body.Total ? req.body.Total : 0);
+          _sqlparams.push(body.MedicalExpenses ? body.MedicalExpenses : '' );
+          _sqlparams.push(body.GiftsExpenses ? body.GiftsExpenses : '' );
+          _sqlparams.push(body.JobsExpenses ? body.JobsExpenses : '' );
+          _sqlparams.push(body.OthersExpenses ? body.OthersExpenses : '' );
+          _sqlparams.push(body.medicaltotal ? body.medicaltotal : 0 );
+          _sqlparams.push(body.gifttotal ? body.gifttotal : 0 );
+          _sqlparams.push(body.jobtotal ? body.jobtotal : 0 );
+          _sqlparams.push(body.othertotal ? body.othertotal : 0 );
          
           _sqlparams.push(req.params.SchaId);
    
-      var queryUpdate = "UPDATE " + table + " SET `Dc1`= ?,`Dc2`= ?,`Dc3`= ?,`Dc4`= ?,`Dc5`= ?,`DcAmount1`= ?,`DcAmount2`= ?,`DcAmount3`= ?, `DcAmount4`= ?,`DcAmount5`= ?,`Gift1`= ?,`Gift2`= ?,`GiftAmount1`= ?,`GiftAmount2`= ?,`Job1`= ?,`Job2`= ?,`Job3`= ?,`Job4`= ?,`Job5`= ?,`JobAmount1`= ?,`JobAmount2`= ?,`JobAmount3`= ?,`JobAmount4`= ?,`JobAmount5`= ?,`Other1`= ?,`Other2`= ?,`Other3`= ?,`OtherAmount1`= ?,`OtherAmount2`= ?,`OtherAmount3`= ?,`Total`= ?  WHERE Id =  ?;";
+      var queryUpdate = "UPDATE " + table + " SET `Dc1`= ?,`Dc2`= ?,`Dc3`= ?,`Dc4`= ?,`Dc5`= ?,`DcAmount1`= ?,`DcAmount2`= ?,`DcAmount3`= ?, `DcAmount4`= ?,`DcAmount5`= ?,`Gift1`= ?,`Gift2`= ?,`GiftAmount1`= ?,`GiftAmount2`= ?,`Job1`= ?,`Job2`= ?,`Job3`= ?,`Job4`= ?,`Job5`= ?,`JobAmount1`= ?,`JobAmount2`= ?,`JobAmount3`= ?,`JobAmount4`= ?,`JobAmount5`= ?,`Other1`= ?,`Other2`= ?,`Other3`= ?,`OtherAmount1`= ?,`OtherAmount2`= ?,`OtherAmount3`= ?,`Total`= ?,`MedicalExpenses`= ?,`GiftsExpenses`= ?,`JobsExpenses`= ?,`OthersExpenses`= ?,`medicaltotal`= ?,`gifttotal`= ?,`jobtotal`= ?,`othertotal`= ?  WHERE Id =  ?;";
 
       conectionDB();
 

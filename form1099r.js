@@ -42,7 +42,7 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.Year);
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`ts`, `ein`, `Name`, `NameContinued`, `Street`, `City`, `State`, `ZipCode`, `FirstName1`, `LastName1`, `Street1`, `City1`, `State1`, `ZipCode1`, `GrossDis`, `TaxAmount`, `CapitalGain`, `EmployContri`, `FederalTax`, `Unrealized`, `DistCode1`, `DistCode2`, `IsaSep`, `TaxPayer`, `Other`, `OtherPer`, `TaxPayerPerTotal`, `TotalEmployee`, `AmountIrr`, `FirstYear`, `Fatca`, `AccountNumber`, `Statetax1`, `Statetax2`, `LocalTax1`, `LocalTax2`, `State11`, `PayerState11`, `State2`, `PayerState2`, `Locality1`, `Locality2`, `StateDistribution1`, `StateDistribution2`, `LocalDistribution1`, `LocalDistribution2`, `FormName`,`FormInfoId`,`UserId`,`Year`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            var queryInsert = "INSERT INTO " + table + " (`ts`, `ein`, `Name`, `NameContinued`, `Street`, `City`, `State`, `ZipCode`, `FirstName1`, `LastName1`, `Street1`, `City1`, `State1`, `ZipCode1`, `GrossDis`, `TaxAmount`, `CapitalGain`, `EmployContri`, `FederalTax`, `Unrealized`, `DistCode1`, `DistCode2`, `IsaSep`, `TaxPayer`, `Other`, `OtherPer`, `TaxPayerPerTotal`, `TotalEmployee`, `AmountIrr`, `FirstYear`, `Fatca`, `AccountNumber`, `Statetax1`, `Statetax2`, `LocalTax1`, `LocalTax2`, `State11`, `PayerState11`, `State2`, `PayerState2`, `Locality1`, `Locality2`, `StateDistribution1`, `StateDistribution2`, `LocalDistribution1`, `LocalDistribution2`, `FormName`, `NotDetermined`, `TotalBand`,`FormInfoId`,`UserId`,`Year`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             conectionDB();
 
@@ -134,7 +134,7 @@ module.exports = function(server, db_config){
          
       _sqlparams.push(req.params.form1099rID);
 
-      var queryUpdate = "UPDATE " + table + " SET `ts` = ?, `ein` = ?, `Name` = ?, `NameContinued` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `FirstName1` = ?, `LastName1` = ?, `Street1` = ?, `City1` = ?, `State1` = ?, `ZipCode1` = ?, `GrossDis` = ?, `TaxAmount` = ?, `CapitalGain` = ?, `EmployContri` = ?, `FederalTax` = ?, `Unrealized` = ?, `DistCode1` = ?, `DistCode2` = ?, `IsaSep` = ?, `TaxPayer` = ?, `Other` = ?, `OtherPer` = ?, `TaxPayerPerTotal` = ?, `TotalEmployee` = ?, `AmountIrr` = ?, `FirstYear` = ?, `Fatca` = ?, `AccountNumber` = ?, `Statetax1` = ?, `Statetax2` = ?, `LocalTax1` = ?, `LocalTax2` = ?, `State11` = ?, `PayerState11` = ?, `State2` = ?, `PayerState2` = ?, `Locality1` = ?, `Locality2` = ?, `StateDistribution1` = ?, `StateDistribution2` = ?, `LocalDistribution1` = ?, `LocalDistribution2` = ?, `FormName` = ? WHERE `Id` = ?";
+      var queryUpdate = "UPDATE " + table + " SET `ts` = ?, `ein` = ?, `Name` = ?, `NameContinued` = ?, `Street` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `FirstName1` = ?, `LastName1` = ?, `Street1` = ?, `City1` = ?, `State1` = ?, `ZipCode1` = ?, `GrossDis` = ?, `TaxAmount` = ?, `CapitalGain` = ?, `EmployContri` = ?, `FederalTax` = ?, `Unrealized` = ?, `DistCode1` = ?, `DistCode2` = ?, `IsaSep` = ?, `TaxPayer` = ?, `Other` = ?, `OtherPer` = ?, `TaxPayerPerTotal` = ?, `TotalEmployee` = ?, `AmountIrr` = ?, `FirstYear` = ?, `Fatca` = ?, `AccountNumber` = ?, `Statetax1` = ?, `Statetax2` = ?, `LocalTax1` = ?, `LocalTax2` = ?, `State11` = ?, `PayerState11` = ?, `State2` = ?, `PayerState2` = ?, `Locality1` = ?, `Locality2` = ?, `StateDistribution1` = ?, `StateDistribution2` = ?, `LocalDistribution1` = ?, `LocalDistribution2` = ?, `FormName` = ?, `NotDetermined` = ?, `TotalBand` = ? WHERE `Id` = ?";
 
       conectionDB();
 
@@ -216,6 +216,8 @@ module.exports = function(server, db_config){
     _sqlparams.push(body.LocalDistribution1  ? body.LocalDistribution1 : 0);
     _sqlparams.push(body.LocalDistribution2  ? body.LocalDistribution2 : 0);
     _sqlparams.push(body.FormName ? body.FormName : "");
+    _sqlparams.push(body.NotDetermined ? 1 : 0 );
+    _sqlparams.push(body.TotalBand ? 1 : 0 );
      
 
     return _sqlparams;
