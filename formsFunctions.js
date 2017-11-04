@@ -107,7 +107,7 @@ function delRecord(req, res, next, table, connection) {
           //Delete register
 
           var queryInsert = "Delete FROM " + table + " WHERE UserID = ? AND Id = ?";
-
+          
           connection.query(queryInsert , [req.params.userId, req.params.formId], function (err, result, fields) {
 
             connection.end();
@@ -118,7 +118,7 @@ function delRecord(req, res, next, table, connection) {
             }
 
             //message unemployment form doesn't match the user
-            res.send(200, {success: false, message:" Form deleted successfully"});
+            res.send(200, {success: true, message:" Form deleted successfully"});
             return next(false);
           });
 

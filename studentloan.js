@@ -2,6 +2,8 @@
 
 var mysql = require('mysql');
 
+var formFunctions = require('./formsFunctions.js');
+
 module.exports = function(server, db_config){
 
   var connection; 
@@ -53,7 +55,7 @@ module.exports = function(server, db_config){
 
       var user = req.params.userId;
 
-      var query = "SELECT FirstName As Name FROM `tx_personal_info` WHERE UserID = ? UNION All SELECT FirstName As Name FROM `tx_form_spouse` WHERE UserID = " + user;
+      var query = "SELECT CONCAT(FirstName,' ', LastName) As Name FROM `tx_personal_info` WHERE UserID = ? UNION All SELECT CONCAT(FirstName,' ', LastName) As Name FROM `tx_form_spouse` WHERE UserID = " + user;
 
       conectionDB();
 
