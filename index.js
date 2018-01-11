@@ -30,7 +30,6 @@ var server = restify.createServer({
 //   password: "",
 //   database: "admin_tax_pupilo"
 // };
-
 var db_config = {
   host: "69.87.220.221",
   user: "admin_pehamr",
