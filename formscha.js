@@ -134,12 +134,15 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.gifttotal ? req.body.gifttotal : 0 );
           _sqlparams.push(req.body.jobtotal ? req.body.jobtotal : 0 );
           _sqlparams.push(req.body.othertotal ? req.body.othertotal : 0 );
+          _sqlparams.push(req.body.FormName ? req.body.FormName : '' );
+          _sqlparams.push(req.body.ts ? req.body.ts : '' );
+          
 
           console.log("insert child care: ",_sqlparams);
 
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`UserId`, `FormInfoId`, `Dc1`, `Dc2`, `Dc3`, `Dc4`, `Dc5`, `DcAmount1`, `DcAmount2`, `DcAmount3`, `DcAmount4`, `DcAmount5`, `Gift1`, `Gift2`, `GiftAmount1`, `GiftAmount2`, `Job1`, `Job2`, `Job3`, `Job4`, `Job5`, `JobAmount1`, `JobAmount2`, `JobAmount3`, `JobAmount4`, `JobAmount5`, `Other1`, `Other2`, `Other3`, `OtherAmount1`, `OtherAmount2`, `OtherAmount3`, `Total`, `Year`, `MedicalExpenses`, `GiftsExpenses`, `JobsExpenses`, `OthersExpenses`, `medicaltotal`, `gifttotal`, `jobtotal`, `othertotal`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`UserId`, `FormInfoId`, `Dc1`, `Dc2`, `Dc3`, `Dc4`, `Dc5`, `DcAmount1`, `DcAmount2`, `DcAmount3`, `DcAmount4`, `DcAmount5`, `Gift1`, `Gift2`, `GiftAmount1`, `GiftAmount2`, `Job1`, `Job2`, `Job3`, `Job4`, `Job5`, `JobAmount1`, `JobAmount2`, `JobAmount3`, `JobAmount4`, `JobAmount5`, `Other1`, `Other2`, `Other3`, `OtherAmount1`, `OtherAmount2`, `OtherAmount3`, `Total`, `Year`, `MedicalExpenses`, `GiftsExpenses`, `JobsExpenses`, `OthersExpenses`, `medicaltotal`, `gifttotal`, `jobtotal`, `othertotal`, `FormName`, `ts`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -225,12 +228,15 @@ module.exports = function(server, db_config){
           _sqlparams.push(req.body.gifttotal ? req.body.gifttotal : 0 );
           _sqlparams.push(req.body.jobtotal ? req.body.jobtotal : 0 );
           _sqlparams.push(req.body.othertotal ? req.body.othertotal : 0 );
+          _sqlparams.push(req.body.FormName ? req.body.FormName : '' );
+           _sqlparams.push(req.body.ts ? req.body.ts : '' );
+
          
           _sqlparams.push(req.params.SchaId);
 
           console.log(_sqlparams);
    
-      var queryUpdate = "UPDATE " + table + " SET `Dc1`= ?,`Dc2`= ?,`Dc3`= ?,`Dc4`= ?,`Dc5`= ?,`DcAmount1`= ?,`DcAmount2`= ?,`DcAmount3`= ?, `DcAmount4`= ?,`DcAmount5`= ?,`Gift1`= ?,`Gift2`= ?,`GiftAmount1`= ?,`GiftAmount2`= ?,`Job1`= ?,`Job2`= ?,`Job3`= ?,`Job4`= ?,`Job5`= ?,`JobAmount1`= ?,`JobAmount2`= ?,`JobAmount3`= ?,`JobAmount4`= ?,`JobAmount5`= ?,`Other1`= ?,`Other2`= ?,`Other3`= ?,`OtherAmount1`= ?,`OtherAmount2`= ?,`OtherAmount3`= ?,`Total`= ?,`MedicalExpenses`= ?,`GiftsExpenses`= ?,`JobsExpenses`= ?,`OthersExpenses`= ?,`medicaltotal`= ?,`gifttotal`= ?,`jobtotal`= ?,`othertotal`= ?  WHERE Id =  ?;";
+      var queryUpdate = "UPDATE " + table + " SET `Dc1`= ?,`Dc2`= ?,`Dc3`= ?,`Dc4`= ?,`Dc5`= ?,`DcAmount1`= ?,`DcAmount2`= ?,`DcAmount3`= ?, `DcAmount4`= ?,`DcAmount5`= ?,`Gift1`= ?,`Gift2`= ?,`GiftAmount1`= ?,`GiftAmount2`= ?,`Job1`= ?,`Job2`= ?,`Job3`= ?,`Job4`= ?,`Job5`= ?,`JobAmount1`= ?,`JobAmount2`= ?,`JobAmount3`= ?,`JobAmount4`= ?,`JobAmount5`= ?,`Other1`= ?,`Other2`= ?,`Other3`= ?,`OtherAmount1`= ?,`OtherAmount2`= ?,`OtherAmount3`= ?,`Total`= ?,`MedicalExpenses`= ?,`GiftsExpenses`= ?,`JobsExpenses`= ?,`OthersExpenses`= ?,`medicaltotal`= ?,`gifttotal`= ?,`jobtotal`= ?,`othertotal`= ?,`FormName`= ?,`ts`= ?  WHERE Id =  ?;";
 
       conectionDB();
 

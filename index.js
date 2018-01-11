@@ -24,19 +24,19 @@ var server = restify.createServer({
   handleUncaughtExceptions : true
 })
 
-// var db_config = {
-//   host: "localhost",
-//   user: "root",
-//   password: "",
-//   database: "admin_tax_pupilo"
-// };
-
 var db_config = {
-  host: "69.87.220.221",
-  user: "admin_pehamr",
-  password: "Jimmy.ascacc31130724",
+  host: "localhost",
+  user: "root",
+  password: "",
   database: "admin_tax_pupilo"
 };
+
+// var db_config = {
+//   host: "69.87.220.221",
+//   user: "admin_pehamr",
+//   password: "Jimmy.ascacc31130724",
+//   database: "admin_tax_pupilo"
+// };
 
 server.use(restify.plugins.bodyParser());
 
