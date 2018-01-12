@@ -6,7 +6,7 @@ var formFunctions = require('./formsFunctions.js');
 module.exports = function(server, db_config){
 
   var connection; 
-  var table = 'tx_form_dependet';
+  var table = 'tx_form_dependent';
 
   server.get('/form_dependent/has/:userId/:Year', (req, res, next) => {
 
@@ -86,7 +86,7 @@ module.exports = function(server, db_config){
 
   server.post('/form_dependent/:userId', (req, res, next) => {
     if(req.params.userId && isInteger(req.params.userId) ){
-      if( req.body.hasOwnProperty('firtname') && req.body.firtname != "" &&  
+      if( req.body.hasOwnProperty('firtsname') && req.body.firtsname != "" &&  
           req.body.hasOwnProperty('lastname') && req.body.lastname != "" &&  
           req.body.hasOwnProperty('ssn') && req.body.ssn != "")
       {
@@ -95,7 +95,7 @@ module.exports = function(server, db_config){
           var _sqlparams = [];
 
           _sqlparams.push(req.body.ssn);
-          _sqlparams.push(req.body.firtname);
+          _sqlparams.push(req.body.firtsname);
           _sqlparams.push(req.body.lastname);
           _sqlparams.push(req.body.relationship);
           _sqlparams.push(req.body.manymonth);
@@ -108,7 +108,7 @@ module.exports = function(server, db_config){
 
             //if record doesn't exist we create it
             //inserting new rpersonal profile
-            var queryInsert = "INSERT INTO " + table + " (`ssn`,`firtname`,`lastname`,`relationship`,`manymonth`,`BirthDate`,`FormInfoId`,`UserID`, `Year`) VALUES (?,?,?,?,?,?,?,?,?);";
+            var queryInsert = "INSERT INTO " + table + " (`ssn`,`firtsname`,`lastname`,`relationship`,`manymonth`,`BirthDate`,`FormInfoId`,`UserID`, `Year`) VALUES (?,?,?,?,?,?,?,?,?);";
 
             conectionDB();
 
@@ -164,7 +164,7 @@ module.exports = function(server, db_config){
       var _sqlparams = [];
 
           _sqlparams.push(req.body.ssn);
-          _sqlparams.push(req.body.firtname);
+          _sqlparams.push(req.body.firtsname);
           _sqlparams.push(req.body.lastname);
           _sqlparams.push(req.body.relationship);
           _sqlparams.push(req.body.manymonth);
@@ -172,7 +172,7 @@ module.exports = function(server, db_config){
          
           _sqlparams.push(req.params.DependentID);
    
-      var queryUpdate = "UPDATE " + table + " SET `ssn` = ?,`firtname` = ?,`lastname` = ?,`relationship` = ?,`manymonth` = ?,`BirthDate` = ?  WHERE Id =  ?;";
+      var queryUpdate = "UPDATE " + table + " SET `ssn` = ?,`firtsname` = ?,`lastname` = ?,`relationship` = ?,`manymonth` = ?,`BirthDate` = ?  WHERE Id =  ?;";
 
       conectionDB();
 
