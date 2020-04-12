@@ -29,19 +29,13 @@ var server = restify.createServer({
 //   user: "root",
 //   password: "",
 //   database: "admin_tax_pupilo"
-// };
-// var db_config = {
-//   host: "69.87.220.221",
-//   user: "admin_pehamr",
-//   password: "Jimmy.ascacc31130724",
-//   database: "admin_tax_pupilo"
-// };
+
 
 var db_config = {
   host: "69.87.220.221",
-  user: "mysql_pupilo",
-  password: "W3lcome.557223",
-  database: "pupilotaxes"
+  user: "mysql",
+  password: "",
+  database: ""
 };
 
 server.use(restify.plugins.bodyParser());
